@@ -12,7 +12,7 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231129230243_init")]
+    [Migration("20231201060116_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -177,10 +177,6 @@ namespace MusicSchool.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -190,6 +186,10 @@ namespace MusicSchool.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
