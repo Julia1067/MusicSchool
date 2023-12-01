@@ -1,6 +1,6 @@
 ﻿@model MusicSchool.Models.DTO.LoginModel
 @{
-    Layout = null;
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -9,34 +9,40 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">	
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <title>login</title>
-        
-
-
-
- 
     </head>
     <body>
-        <form asp-action="Login" method="post">
-            <div class="container">
-                <label asp-for="Email"><b>Email</b></label>
-                <input type="text" asp-for="Email" placeholder="Email">
-                <div class="msg">
-                <span class="err" asp-validation-for="Email"></span>
+    <form method="post" asp-controller="UserAuthentication" asp-action="Login" autocomplete="off">
+
+        <div class="container">
+            <div class="action">ВХІД</div>
+            <div class="datacontainer">
+                <div class="input-container">
+                    <input type="text" placeholder="Логін" asp-for="Email">
+                    <label asp-for="Email" for="Username">Логін</label>
+                </div>
+                <div class="message-box">
+                    <span asp-validation-for="Email"></span>
                 </div>
 
-                <label asp-for="Password"><b>Password</b></label>
-                <input  type="password" asp-for="Password" placeholder="Enter Password">
-                <div class="msg">
-                    <span asp-validation-for="Password" class="err"></span>
+                <div class="input-container">
+                    <input type="password" placeholder="Пароль" class="input" asp-for="Password">
+                    <label asp-for="Password" for="Password">Пароль</label>
                 </div>
-
-                @if(TempData["msg"]!=null){
-                    <div class="msg">@TempData["msg"]</div>
-                }
-
-                <button type="submit">Login</button>
-                <a class="text-alert" href="/UserAuthentication/Registration">Not a user? Signup</a>
+                <div class="message-box">
+                    <span asp-validation-for="Password"></span>
+                </div>
             </div>
-        </form>
+            @if (TempData["msg"] != null)
+            {
+                <div class="form-group">
+                    <span class="text-info">@TempData["msg"]</span>
+                </div>
+            }
+            <div class="button-container">
+                <button class="btn-default" type="submit">УВІЙТИ</button>
+            </div>
+            <a class="ref" href="/UserAuthentication/Registration">РЕЄСТРАЦІЯ</a>
+        </div>
+    </form>
     </body>
 </html>

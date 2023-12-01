@@ -51,7 +51,7 @@ namespace MusicSchool.Controllers
             model.Role = "user";
             var result = await this.authService.RegistrationAsync(model);
             TempData["msg"] = result.StatusMessage;
-            return RedirectToAction(nameof(Registration));
+            return RedirectToAction(nameof(Login));
         }
 
         [Authorize]
