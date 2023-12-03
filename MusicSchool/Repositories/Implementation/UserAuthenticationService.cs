@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MusicSchool.Models.Domain;
 using MusicSchool.Models.DTO;
 using MusicSchool.Repositories.Abstract;
@@ -12,15 +13,18 @@ namespace MusicSchool.Repositories.Implementation
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly DatabaseContext databaseContext;
 
         public UserAuthenticationService(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            DatabaseContext databaseContext)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.databaseContext = databaseContext;
         }
 
 
@@ -29,6 +33,7 @@ namespace MusicSchool.Repositories.Implementation
         {
             var status = new StatusModel();
             var user = await userManager.FindByNameAsync(model.Email);
+
 
             if (user == null)
             {
@@ -54,6 +59,14 @@ namespace MusicSchool.Repositories.Implementation
                 };
                 status.StatusCode = 1;
                 status.StatusMessage = "User logged in successfully";
+
+                //user = await databaseContext.Users.FirstOrDefaultAsync(x => x.Email == model.Email);
+                //string userId = user.Id;
+
+                model.Role = (from userRole in databaseContext.UserRoles
+                                 where userRole.UserId == user.Id
+                                 join role in databaseContext.Roles on userRole.RoleId equals role.Id
+                                 select role.Name).FirstOrDefault();
                 return status;
             }
             else if (signInResult.IsLockedOut)
@@ -98,6 +111,16 @@ namespace MusicSchool.Repositories.Implementation
                 EmailConfirmed = true,
             };
 
+            UnconfirmedUserModel unconfirmed = new()
+            {
+                Name = model.Name,
+                LastName = model.LastName,
+                Patronymic = model.Patronymic,
+                Email = model.Email
+            };
+
+            await databaseContext.UnconfirmedUsers.AddAsync(unconfirmed);
+
             var result = await userManager.CreateAsync(user, model.Password);
 
             if (!await roleManager.RoleExistsAsync(model.Role))
@@ -116,7 +139,7 @@ namespace MusicSchool.Repositories.Implementation
                 return status;
             }
 
-            
+            databaseContext.SaveChanges();
             status.StatusCode = 1;
             status.StatusMessage = "User has registered successfully";
             return status;

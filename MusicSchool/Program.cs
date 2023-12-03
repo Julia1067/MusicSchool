@@ -14,7 +14,7 @@ builder.Services
         .UseSqlServer(builder.Configuration
             .GetConnectionString("conn")));
 
-builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
+//builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>()
@@ -22,6 +22,7 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+builder.Services.AddScoped<IUserConfirmationService, UserConfirmationService>();
 
 var app = builder.Build();
 
@@ -40,8 +41,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

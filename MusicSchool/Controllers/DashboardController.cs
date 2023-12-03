@@ -2,7 +2,7 @@
 
 namespace MusicSchool.Controllers
 {
-    public class Dashboard : Controller
+    public class DashboardController : Controller
     {
         public IActionResult Display()
         {

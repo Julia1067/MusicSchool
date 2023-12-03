@@ -1,7 +1,5 @@
 *{
-    background: black;
-    margin: 0;
-    padding: 0;
+    
 }
 
 header{
@@ -15,4 +13,16 @@ header{
     justify-content: center;
     font-size: 40px;
     margin-top: 2vh;
+}
+/*body{
+    background: black;
+}*/
+
+form {
+    background: #151515;
+    border-radius: 0.5em;
+    width: 40em;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }

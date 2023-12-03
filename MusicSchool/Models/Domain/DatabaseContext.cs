@@ -10,5 +10,6 @@ namespace MusicSchool.Models.Domain
 
         }
 
+        public DbSet<UnconfirmedUserModel> UnconfirmedUsers { get; set; }
     }
 }

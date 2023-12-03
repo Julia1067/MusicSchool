@@ -13,20 +13,22 @@
     <body>
     <form method="post" asp-controller="UserAuthentication" asp-action="Login" autocomplete="off">
 
-        <div class="container">
+        <div class="form-container">
             <div class="action">ВХІД</div>
             <div class="datacontainer">
                 <div class="input-container">
-                    <input type="text" placeholder="Логін" asp-for="Email">
                     <label asp-for="Email" for="Username">Логін</label>
+                    <input type="text" placeholder="Логін" asp-for="Email">
+                    
                 </div>
                 <div class="message-box">
                     <span asp-validation-for="Email"></span>
                 </div>
 
                 <div class="input-container">
-                    <input type="password" placeholder="Пароль" class="input" asp-for="Password">
                     <label asp-for="Password" for="Password">Пароль</label>
+                    <input type="password" placeholder="Пароль" class="input" asp-for="Password">
+                    
                 </div>
                 <div class="message-box">
                     <span asp-validation-for="Password"></span>

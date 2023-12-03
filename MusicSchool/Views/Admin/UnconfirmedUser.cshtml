@@ -1,0 +1,18 @@
+﻿@using MusicSchool.Repositories.Abstract;
+@inject IUserConfirmationService confirmation;
+@{
+    var unconfirmedUsers = confirmation.GetAllUnconfirmedUsers();
+
+}
+
+@{
+    foreach(var user in unconfirmedUsers)
+    {
+        <tr>
+            <td>@user.LastName</td>
+            <td>@user.Name</td>
+            <td>@user.Patronymic</td>
+            <td>@user.Email</td>
+        </tr>
+    }
+}

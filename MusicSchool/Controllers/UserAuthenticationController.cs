@@ -22,6 +22,7 @@ namespace MusicSchool.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
@@ -30,7 +31,10 @@ namespace MusicSchool.Controllers
             var result = await authService.LoginAsync(model);
             if (result.StatusCode == 1)
             {
-                return RedirectToAction("Display", "Dashboard");
+                if (model.Role == "admin")
+                    return RedirectToAction("Display", "Admin");
+                else
+                    return RedirectToAction("Display", "Dashboard");
             }
             else
             {
@@ -52,6 +56,22 @@ namespace MusicSchool.Controllers
             var result = await this.authService.RegistrationAsync(model);
             TempData["msg"] = result.StatusMessage;
             return RedirectToAction(nameof(Login));
+        }
+
+        public async Task<IActionResult> AdminRegister()
+        {
+            var model = new RegistrationModel
+            {
+                Email = "admin@gmail.com",
+                Name = "Yuliia",
+                LastName = "Hapon",
+                Patronymic = "Olehivna",
+                Password = "Admin@123",
+                PasswordConfirm = "Admin@123",
+                Role = "admin"
+            };
+            var result = await authService.RegistrationAsync(model);
+            return Ok(result.StatusMessage);
         }
 
         [Authorize]
