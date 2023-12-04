@@ -8,6 +8,6 @@ namespace MusicSchool.Repositories.Abstract
         public List<UnconfirmedUserModel> GetAllUnconfirmedUsers();
         public Task<StatusModel> ConfirmAsTeacher();
         public Task<StatusModel> ConfirmAsStudent();
-        public Task<StatusModel> LeaveUnconfirmed();
+        public Task<StatusModel> LeaveUnconfirmed(string Email);
     }
 }

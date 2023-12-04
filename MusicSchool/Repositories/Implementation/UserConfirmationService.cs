@@ -1,4 +1,5 @@
-﻿using MusicSchool.Models.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicSchool.Models.Domain;
 using MusicSchool.Models.DTO;
 using MusicSchool.Repositories.Abstract;
 
@@ -23,9 +24,12 @@ namespace MusicSchool.Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<StatusModel> LeaveUnconfirmed()
+        public async Task<StatusModel> LeaveUnconfirmed(string Email)
         {
-            throw new NotImplementedException();
+            var user = databaseContext.UnconfirmedUsers.FirstOrDefault(x => x.Email == Email);
+            databaseContext.UnconfirmedUsers.Remove(user);
+            await databaseContext.SaveChangesAsync();
+            return new StatusModel() { StatusCode = 1 };
         }
 
         public  List<UnconfirmedUserModel> GetAllUnconfirmedUsers()

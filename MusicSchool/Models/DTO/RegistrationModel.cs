@@ -5,7 +5,7 @@ namespace MusicSchool.Models.DTO
     public class RegistrationModel
     {
 
-        public string? Role { get; set; }
+        public string Role { get; set; }
 
         [Required]
         public string LastName { get; set; }
