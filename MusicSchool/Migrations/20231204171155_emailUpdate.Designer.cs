@@ -12,8 +12,8 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231203132738_init")]
-    partial class init
+    [Migration("20231204171155_emailUpdate")]
+    partial class emailUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,6 +235,107 @@ namespace MusicSchool.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("MusicSchool.Models.Domain.StudentGroupModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentGroups");
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.StudentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BirthDay")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("studentGroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("studentGroupId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.TeacherModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BirthDay")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("money");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PositionId");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.TeacherPositionModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TeachersPositions");
+                });
+
             modelBuilder.Entity("MusicSchool.Models.Domain.UnconfirmedUserModel", b =>
                 {
                     b.Property<int>("Id")
@@ -309,6 +410,34 @@ namespace MusicSchool.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.StudentModel", b =>
+                {
+                    b.HasOne("MusicSchool.Models.Domain.StudentGroupModel", "studentGroup")
+                        .WithMany("Students")
+                        .HasForeignKey("studentGroupId");
+
+                    b.Navigation("studentGroup");
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.TeacherModel", b =>
+                {
+                    b.HasOne("MusicSchool.Models.Domain.TeacherPositionModel", "Position")
+                        .WithMany("Teachers")
+                        .HasForeignKey("PositionId");
+
+                    b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.StudentGroupModel", b =>
+                {
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("MusicSchool.Models.Domain.TeacherPositionModel", b =>
+                {
+                    b.Navigation("Teachers");
                 });
 #pragma warning restore 612, 618
         }

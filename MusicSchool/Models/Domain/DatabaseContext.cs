@@ -11,5 +11,9 @@ namespace MusicSchool.Models.Domain
         }
 
         public DbSet<UnconfirmedUserModel> UnconfirmedUsers { get; set; }
+        public DbSet<StudentModel> Students { get; set; }
+        public DbSet<StudentGroupModel> StudentGroups { get; set; }
+        public DbSet<TeacherModel> Teachers { get; set; }
+        public DbSet<TeacherPositionModel> TeachersPositions { get; set;}
     }
 }

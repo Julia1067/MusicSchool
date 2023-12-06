@@ -14,7 +14,7 @@ builder.Services
         .UseSqlServer(builder.Configuration
             .GetConnectionString("conn")));
 
-//builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
+builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>()

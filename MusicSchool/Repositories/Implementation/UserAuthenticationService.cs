@@ -27,8 +27,6 @@ namespace MusicSchool.Repositories.Implementation
             this.databaseContext = databaseContext;
         }
 
-
-
         public async Task<StatusModel> LoginAsync(LoginModel model)
         {
             var status = new StatusModel();
