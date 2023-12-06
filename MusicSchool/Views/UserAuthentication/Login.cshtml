@@ -2,33 +2,21 @@
 @{
 
 }
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">	
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>login</title>
-    </head>
-    <body>
+<div class="center-cont">
+    <div class="action">ВХІД</div>
     <form method="post" asp-controller="UserAuthentication" asp-action="Login" autocomplete="off">
-
         <div class="form-container">
-            <div class="action">ВХІД</div>
-            <div class="datacontainer">
+            <div class="data-container">
                 <div class="input-container">
-                    <label asp-for="Email" for="Username">Логін</label>
+                    <label asp-for="Email" for="Email">Логін</label>
                     <input type="text" placeholder="Логін" asp-for="Email">
-                    
                 </div>
                 <div class="message-box">
                     <span asp-validation-for="Email"></span>
                 </div>
-
                 <div class="input-container">
                     <label asp-for="Password" for="Password">Пароль</label>
-                    <input type="password" placeholder="Пароль" class="input" asp-for="Password">
-                    
+                    <input type="password" placeholder="Пароль" asp-for="Password">
                 </div>
                 <div class="message-box">
                     <span asp-validation-for="Password"></span>
@@ -43,8 +31,10 @@
             <div class="button-container">
                 <button class="btn-default" type="submit">УВІЙТИ</button>
             </div>
-            <a class="ref" href="/UserAuthentication/Registration">РЕЄСТРАЦІЯ</a>
+            <div class="ref">
+                <a  href="/UserAuthentication/Registration">РЕЄСТРАЦІЯ</a>
+            </div>
         </div>
     </form>
-    </body>
-</html>
+</div>
+        
