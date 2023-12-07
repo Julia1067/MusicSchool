@@ -44,5 +44,10 @@ namespace MusicSchool.Controllers
         {
             await _confirmationService.ConfirmAsStudent(Email);
         }
+
+        public async Task ConfirmAsTeacher(string Email)
+        {
+            await _confirmationService.ConfirmAsTeacher(Email);
+        }
     }
 }

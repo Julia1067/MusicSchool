@@ -6,15 +6,228 @@
 }
 
 @{
-    foreach(var user in unconfirmedUsers)
+    if (unconfirmedUsers.Count % 2 == 0)
     {
-        <tr>
-            <td>@user.LastName</td>
-            <td>@user.Name</td>
-            <td>@user.Patronymic</td>
-            <td>@user.Email</td>
-            <a onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@user.Email">Видалити</a>
-            <a onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@user.Email"> Підтвердити, як учня</a>
-        </tr>
+        for (int i = 0; i < unconfirmedUsers.Count; i = +2)
+        {
+            <div class="users">
+                <div class="users-cont">
+                    <div class="user1">
+                        <div class="user-cont">
+                            <div class="info">
+                                <div class="label">Прізвище</div>
+                                <div class="attribute">@unconfirmedUsers[i].LastName</div>
+                            </div>
+                            <div class="info">
+                                <div class="label">Ім'я</div>
+                                <div class="attribute">@unconfirmedUsers[i].Name</div>
+                            </div>
+                            <div class="info">
+                                <div class="label">По-батькові</div>
+                                <div class="attribute">@unconfirmedUsers[i].Patronymic</div>
+                            </div>
+                            <div class="info">
+                                <div class="label">Email</div>
+                                <div class="attribute">@unconfirmedUsers[i].Email</div>
+                            </div>
+                        </div>
+                        <div class="act">
+                            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@unconfirmedUsers[i].Email">Видалити</a>
+                            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@unconfirmedUsers[i].Email"> Підтвердити, як учня</a>
+                            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@unconfirmedUsers[i].Email"> Підтвердити, як викладача</a>
+                        </div>
+                    </div>
+                    <div class="user2">
+                        <div class="user-cont">
+                            <div class="info">
+                                <div class="label">Прізвище</div>
+                                <div class="attribute">@unconfirmedUsers[i+1].LastName</div>
+                            </div>
+                            <div class="info">
+                                <div class="label">Ім'я</div>
+                                <div class="attribute">@unconfirmedUsers[i+1].Name</div>
+                            </div>
+                            <div class="info">
+                                <div class="label">По-батькові</div>
+                                <div class="attribute">@unconfirmedUsers[i + 1].Patronymic</div>
+                            </div>
+                            <div class="info">
+                                <div class="label">Email</div>
+                                <div class="attribute">@unconfirmedUsers[i + 1].Email</div>
+                            </div>
+                        </div>
+                        <div class="act">
+                            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@unconfirmedUsers[i + 1].Email">Видалити</a>
+                            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@@unconfirmedUsers[i + 1].Email"> Підтвердити, як учня</a>
+                            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@@unconfirmedUsers[i + 1].Email"> Підтвердити, як викладача</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
     }
+    else
+    {
+        if (unconfirmedUsers.Count == 1)
+        {
+            <div class="users">
+                <div class="user1">
+                    <div class="user-cont">
+                        <div class="info">
+                            <div class="label">Прізвище</div>
+                            <div class="attribute">@unconfirmedUsers[0].LastName</div>
+                        </div>
+                        <div class="info">
+                            <div class="label">Ім'я</div>
+                            <div class="attribute">@unconfirmedUsers[0].Name</div>
+                        </div>
+                        <div class="info">
+                            <div class="label">По-батькові</div>
+                            <div class="attribute">@unconfirmedUsers[0].Patronymic</div>
+                        </div>
+                        <div class="info">
+                            <div class="label">Email</div>
+                            <div class="attribute">@unconfirmedUsers[0].Email</div>
+                        </div>
+                    </div>
+                    <div class="act">
+                        <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@unconfirmedUsers[0].Email">Видалити</a>
+                        <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@unconfirmedUsers[0].Email"> Підтвердити, як учня</a>
+                        <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@unconfirmedUsers[0].Email"> Підтвердити, як викладача</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            for (int i = 0; i < unconfirmedUsers.Count; i = +2)
+            {
+                <div class="users">
+                    <div class="users-cont">
+                        <div class="user1">
+                            <div class="user-cont">
+                                <div class="info">
+                                    <div class="label">Прізвище</div>
+                                    <div class="attribute">@unconfirmedUsers[i].LastName</div>
+                                </div>
+                                <div class="info">
+                                    <div class="label">Ім'я</div>
+                                    <div class="attribute">@unconfirmedUsers[i].Name</div>
+                                </div>
+                                <div class="info">
+                                    <div class="label">По-батькові</div>
+                                    <div class="attribute">@unconfirmedUsers[i].Patronymic</div>
+                                </div>
+                                <div class="info">
+                                    <div class="label">Email</div>
+                                    <div class="attribute">@unconfirmedUsers[i].Email</div>
+                                </div>
+                            </div>
+                            <div class="act">
+                                <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@unconfirmedUsers[i].Email">Видалити</a>
+                                <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@unconfirmedUsers[i].Email"> Підтвердити, як учня</a>
+                                <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@unconfirmedUsers[i].Email"> Підтвердити, як викладача</a>
+                            </div>
+                        </div>
+
+                        <div class="user2">
+                            <div class="user-cont">
+                                <div class="info">
+                                    <div class="label">Прізвище</div>
+                                    <div class="attribute">@unconfirmedUsers[i+1].LastName</div>
+                                </div>
+                                <div class="info">
+                                    <div class="label">Ім'я</div>
+                                    <div class="attribute">@unconfirmedUsers[i+1].Name</div>
+                                </div>
+                                <div class="info">
+                                    <div class="label">По-батькові</div>
+                                    <div class="attribute">@unconfirmedUsers[i + 1].Patronymic</div>
+                                </div>
+                                <div class="info">
+                                    <div class="label">Email</div>
+                                    <div class="attribute">@unconfirmedUsers[i + 1].Email</div>
+                                </div>
+                            </div>
+                            <div class="act">
+                                <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@unconfirmedUsers[i + 1].Email">Видалити</a>
+                                <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@unconfirmedUsers[i + 1].Email"> Підтвердити, як учня</a>
+                                <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@unconfirmedUsers[i + 1].Email"> Підтвердити, як викладача</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    @{
+                        if (i == unconfirmedUsers.Count - 3)
+                        {
+                            <div class="users-cont">
+                                <div class="user1">
+                                    <div class="user-cont">
+                                        <div class="info">
+                                            <div class="label">Прізвище</div>
+                                            <div class="attribute">@unconfirmedUsers[i+2].LastName</div>
+                                        </div>
+                                        <div class="info">
+                                            <div class="label">Ім'я</div>
+                                            <div class="attribute">@unconfirmedUsers[i+2].Name</div>
+                                        </div>
+                                        <div class="info">
+                                            <div class="label">По-батькові</div>
+                                            <div class="attribute">@unconfirmedUsers[i + 2].Patronymic</div>
+                                        </div>
+                                        <div class="info">
+                                            <div class="label">Email</div>
+                                            <div class="attribute">@unconfirmedUsers[i + 2].Email</div>
+                                        </div>
+                                    </div>
+                                    <div class="act">
+                                        <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@unconfirmedUsers[i + 2].Email">Видалити</a>
+                                        <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@unconfirmedUsers[i + 2].Email"> Підтвердити, як учня</a>
+                                        <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@unconfirmedUsers[i + 2].Email"> Підтвердити, як викладача</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            break;
+                        }
+                    }
+
+                </div>
+
+
+            }
+        }
+
+    }
+
+    //foreach(var user in unconfirmedUsers)
+    //{
+    //    <div class="users">
+    //        <div class="users-cont">
+    //            <div class="info">
+    //                <div class="label">Прізвище</div>
+    //                <div class="attribute">@user.LastName</div>
+    //            </div>
+    //            <div class="info">
+    //                <div class="label">Ім'я</div>
+    //                <div class="attribute">@user.Name</div>
+    //            </div>
+    //            <div class="info">
+    //                <div class="label">По-батькові</div>
+    //                <div class="attribute">@user.Patronymic</div>
+    //            </div>
+    //            <div class="info">
+    //                <div class="label">Email</div>
+    //                <div class="attribute">@user.Email</div>
+    //            </div>
+    //        </div>
+    //        <div class="act">
+    //            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/Delete?Email=@user.Email">Видалити</a>
+    //            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsStudent?Email=@user.Email"> Підтвердити, як учня</a>
+    //            <a class="act-ref" onclick="return window.confirm('Are you sure?')" href="/Admin/ConfirmAsTeacher?Email=@user.Email"> Підтвердити, як викладача</a>
+    //        </div>
+
+    //    </div>
+    //}
 }

@@ -34,6 +34,7 @@ main {
     height: 85vh;
     width: 100vw;
     justify-content: center;
+    display: grid;
 }
 .center-cont {
     width: 30em;
@@ -43,7 +44,7 @@ main {
     border-radius: 10px;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-70%);
     background: #151515;
     
 }
@@ -119,7 +120,7 @@ a:hover{
     border-radius: 10px;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-70%);
     background: #151515;
 }
 
@@ -131,4 +132,62 @@ a:hover{
     position: relative;
     top: 50%;
     transform: translateY(-60%);
+}
+.adm-func{
+    font-size: 20px;
+    text-decoration:none;
+
+}
+.users{
+    
+    display: grid;
+
+}
+.users-cont {
+    display: flex;
+    height: 20em;
+}
+.user1 {
+    display: flex;
+    background: #151515;
+    margin-right: 2em;
+    border-radius: 1em;
+    width: 50em;
+}
+.user2 {
+    display: flex;
+    background: #151515;
+    border-radius: 1em;
+    width: 50em;
+}
+.info{
+    display: flex;
+}
+.label{
+    width: 10em;
+}
+.act {
+    flex-wrap: wrap;
+    margin-left: 5vw;
+    align-content: center;
+    display: grid;
+    text-align: center
+}
+
+.act-ref {
+    margin: 1em;
+    padding: 1em;
+    font-size: 15px;
+    /*background: #a371be*/
+    text-decoration: none;
+    border: 2px solid;
+    border-radius: 0.5em;
+    word-break: keep-all;
+    margin-right: 5em;
+}
+.user-cont {
+    margin-left: 5em;
+    position: relative;
+    top: 50%;
+    transform: translateY(-21%);
 }
