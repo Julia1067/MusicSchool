@@ -1,12 +1,12 @@
 ﻿namespace MusicSchool.Models.Domain
 {
-    public class StudentGroupModel
+    public class ClassroomModel
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public int ClassroomNumber { get; set; }
 
-        public List<StudentModel> Students { get; set; }
+        public List<ClassScheduleModel> ClassSchedule { get; set; }
 
         public List<ExtraClassScheduleModel> ExtraClassSchedule { get; set; }
     }

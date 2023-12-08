@@ -15,5 +15,11 @@ namespace MusicSchool.Models.Domain
         public DbSet<StudentGroupModel> StudentGroups { get; set; }
         public DbSet<TeacherModel> Teachers { get; set; }
         public DbSet<TeacherPositionModel> TeachersPositions { get; set;}
+        public DbSet<ClassScheduleModel> Schedule { get; set; }
+        public DbSet<ClassModel> Classes { get; set; }
+        public DbSet<ClassroomModel> Classroomes { get; set; }
+        public DbSet<ConcertProgramModel> ConcertPrograms { get; set; }
+        public DbSet<ExtraClassModel> ExtraClasses { get; set; }
+        public DbSet<ExtraClassScheduleModel> ExtraSchedule { get; set; }
     }
 }

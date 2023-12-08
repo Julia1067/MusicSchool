@@ -37,8 +37,7 @@ namespace MusicSchool.Repositories.Implementation
                 Name = user.Name,
                 LastName = user.LastName,
                 Patronymic = user.Patronymic,
-                Email = user.Email,
-                BirthDay = user.BirthDay
+                Email = user.Email
             };
 
             databaseContext.Students.Add(student);
@@ -64,8 +63,7 @@ namespace MusicSchool.Repositories.Implementation
                 Name = user.Name,
                 LastName = user.LastName,
                 Patronymic = user.Patronymic,
-                Email = user.Email,
-                BirthDay = user.BirthDay
+                Email = user.Email
             };
 
             databaseContext.Teachers.Add(teacher);

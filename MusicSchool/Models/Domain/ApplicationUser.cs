@@ -12,7 +12,5 @@ namespace MusicSchool.Models.Domain
 
         public string Patronymic { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime BirthDay { get; set; }
     }
 }
