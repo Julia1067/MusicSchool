@@ -1,12 +1,13 @@
 ﻿using MusicSchool.Models.Domain;
+using MusicSchool.Models.DTO;
 
 namespace MusicSchool.Repositories.Abstract
 {
     public interface IAdminService
     {
-        public Task UpdateStudentInfo();
+        public Task UpdateStudentInfo(StudentInfoChangeModel model);
 
-        public Task UpdateTeacherInfo();
+        public Task UpdateTeacherInfo(TeacherInfoChangeModel model);
 
         public Task DeleteUser();
 
@@ -14,10 +15,14 @@ namespace MusicSchool.Repositories.Abstract
 
         public List<StudentModel> GetStudentList(string Groups);
 
-        public Task<TeacherModel> GetTeacherList();
+        public List<TeacherModel> GetTeacherList();
 
-        public Task<TeacherModel> GetTeacherList(decimal Salary);
+        public List<TeacherModel> GetTeacherList(decimal Salary);
 
-        public Task<TeacherModel> GetTeacherList(TeacherPositionModel position);
+        public List<TeacherModel> GetTeacherList(string Position);
+
+        public List<StudentGroupModel> GetStudentGroupList();
+
+        public List<TeacherPositionModel> GetTeacherPositionList();
     }
 }
