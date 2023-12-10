@@ -5,19 +5,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicSchool.Models.DTO
 {
-    public class StudentInfoChangeModel
+    public class InfoChangeModel
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string LastName { get; set; }
 
+        [Required]
         public string Patronymic { get; set; }
 
-        [Column(TypeName = "date")]
+        
         public DateTime BirthDay { get; set; }
-
+        
         public StudentGroupModel StudentGroup { get; set; }
+
+        public string StudentGroupName { get; set; }
+
+        public TeacherPositionModel Position { get; set; }
+
+        public string PositionName { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal Salary { get; set; }
     }
 }

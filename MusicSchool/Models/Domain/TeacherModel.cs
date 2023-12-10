@@ -18,6 +18,8 @@ namespace MusicSchool.Models.Domain
         [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
 
+        public int? PositionId { get; set; }
+
         public TeacherPositionModel Position { get; set; }
 
         [Column(TypeName = "money")]

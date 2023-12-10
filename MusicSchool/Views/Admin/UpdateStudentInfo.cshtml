@@ -1,0 +1,74 @@
+﻿@model MusicSchool.Models.DTO.InfoChangeModel;
+@inject MusicSchool.Repositories.Abstract.IAdminService adminService
+@{
+    var groups = adminService.GetStudentGroupList();
+}
+
+<div class="center-cont-reg">
+    <div class="action">Оновлення даних</div>
+    <form method="post" asp-controller="Admin" asp-action="UpdateStudentInfo" autocomplete="off">
+        <div class="form-container">
+            <div class="data-container-reg">
+                <input asp-for="Id" hidden="hidden" value="@Model.Id" />
+                <div class="part1">
+                    <div class="input-container">
+                        <label asp-for="LastName" for="LastName">Прізвище</label>
+                        <input type="text" placeholder="Прізвище" asp-for="LastName">
+                    </div>
+                    <div class="message-box">
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="Name" for="Name">Ім'я</label>
+                        <input type="text" placeholder="Ім'я" asp-for="Name">
+                    </div>
+                    <div class="message-box">
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="Patronymic" for="Patronymic">По-батькові</label>
+                        <input type="text" placeholder="По-батькові" asp-for="Patronymic">
+                    </div>
+                    <div class="message-box">
+                        <span asp-validation-for="Patronymic"></span>
+                    </div>
+                </div>
+                <div class="part2">
+                    <div class="input-container">
+                        <label asp-for="BirthDay" for="BirthDay">День народження</label>
+                        <input type="date" placeholder="BirthDay" asp-for="BirthDay">
+                    </div>
+                    <div class="message-box">
+                        <span asp-validation-for="BirthDay"></span>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="StudentGroupName" for="StudentGroupName">Група</label>
+                        <input type="text" placeholder="StudentGroupName" asp-for="StudentGroupName" list="Groups">
+
+                        <datalist id="Groups">
+                            @{
+                                foreach (var item in groups)
+                                {
+                                    <option >@item.Name</option>
+                                }
+                            }
+
+                        </datalist>
+                    </div>
+                    <div class="message-box">
+                        <span asp-validation-for="StudentGroup"></span>
+                    </div>
+                </div>
+            </div>
+            @if (TempData["msg"] != null)
+            {
+                <div class="message-box">
+                    <span class="text-info">@TempData["msg"]</span>
+                </div>
+            }
+            <div class="button-container">
+                <button class="btn-default" type="submit">Змінити</button>
+            </div>
+        </div>
+    </form>
+</div>

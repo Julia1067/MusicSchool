@@ -24,6 +24,8 @@ builder.Services
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IUserConfirmationService, UserConfirmationService>();
 
+builder.Services.AddTransient<IAdminService, AdminService>();
+
 var app = builder.Build();
 
 

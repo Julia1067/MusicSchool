@@ -18,6 +18,8 @@ namespace MusicSchool.Models.Domain
         [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
 
+        public int? StudentGroupId { get; set; }
+
         public StudentGroupModel StudentGroup { get; set; }
 
         public List<ClassScheduleModel> ClassSchedule { get; set; }

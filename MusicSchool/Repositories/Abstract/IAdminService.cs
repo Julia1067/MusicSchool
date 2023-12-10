@@ -5,11 +5,21 @@ namespace MusicSchool.Repositories.Abstract
 {
     public interface IAdminService
     {
-        public Task UpdateStudentInfo(StudentInfoChangeModel model);
+        public StudentModel GetCurrentStudent(string Email);
 
-        public Task UpdateTeacherInfo(TeacherInfoChangeModel model);
+        public TeacherModel GetCurrentTeacher(string Email);
 
-        public Task DeleteUser();
+        public Task UpdateStudentInfo(InfoChangeModel model);
+
+        public Task UpdateTeacherInfo(InfoChangeModel model);
+
+        public string GetCurrentGroup(string Email);
+
+        public string GetCurrentPosition(string Email);
+
+        public Task DeleteStudent(string Email);
+
+        public Task DeleteTeacher(string Email);
 
         public List<StudentModel> GetStudentList();
 

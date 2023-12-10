@@ -1,0 +1,24 @@
+﻿@inject MusicSchool.Repositories.Abstract.IAdminService adminService;
+
+<table>
+    <tr>
+        <td>ПІБ</td>
+        <td>Група</td>
+        <td>Дата народження</td>
+        <td>Email</td>
+    </tr>
+    @{
+        foreach (var item in adminService.GetStudentList())
+        {
+            <tr>
+                @*<td>@item.LastName</td>*@
+                <td>@item.LastName @item.Name @item.Patronymic</td>
+                <td>@adminService.GetCurrentGroup(item.Email)</td>
+                <td>@item.BirthDay.ToShortDateString()</td>
+                <td>@item.Email</td>
+                <td><a href="/Admin/UpdateStudentInfo?Email=@item.Email">Змінити</a></td>
+                <td><a href="/Admin/StudentDelete?Email=@item.Email" >Видалити</a></td>
+            </tr>
+        }
+    }
+</table>

@@ -26,8 +26,8 @@ namespace MusicSchool.Repositories.Implementation
             var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Email == Email);
             string role = "student";
 
-            //if (!await roleManager.RoleExistsAsync(role))
-                //await roleManager.CreateAsync(new IdentityRole(role));
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole(role));
 
             await userManager.RemoveFromRoleAsync(user, "user");
             await userManager.AddToRoleAsync(user, role);
@@ -63,7 +63,8 @@ namespace MusicSchool.Repositories.Implementation
                 Name = user.Name,
                 LastName = user.LastName,
                 Patronymic = user.Patronymic,
-                Email = user.Email
+                Email = user.Email,
+                
             };
 
             databaseContext.Teachers.Add(teacher);
