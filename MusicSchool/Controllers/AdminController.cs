@@ -14,16 +14,19 @@ namespace MusicSchool.Controllers
         private readonly IAdminService _adminService;
         private readonly IScheduleService _scheduleService;
         private readonly IPriceService _priceService;
+        private readonly IConcertProgramService _concertProgramService;
 
         public AdminController(IUserConfirmationService confirmationService,
             IAdminService adminService,
             IScheduleService scheduleService,
-            IPriceService priceService)
+            IPriceService priceService,
+            IConcertProgramService concertProgramService)
         {
             _confirmationService = confirmationService;
             _adminService = adminService;
             _scheduleService = scheduleService;
             _priceService = priceService;
+            _concertProgramService = concertProgramService;
         }
 
 
@@ -212,6 +215,56 @@ namespace MusicSchool.Controllers
             await _priceService.UpdatePrices(model);
             TempData["msg"] = "Changes Saved";
             return Redirect(Request.Headers["Referer"].ToString());
-        } 
+        }
+
+        [HttpGet]
+        public IActionResult GetConcertProgram()
+        {
+            var prices = _concertProgramService.GetConcertProgram();
+            return View(prices);
+        }
+
+        [HttpGet]
+        public IActionResult SetConcertProgram()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetConcertProgram(SetConcertProgramModel model)
+        {
+            await _concertProgramService.AddToConcertProgram(model);
+            TempData["msg"] = "Creation succed";
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpGet]
+        public IActionResult UpdateConcertProgram(int Id)
+        {
+            var program = _concertProgramService.GetCurrentConcertProgram(Id);
+
+            SetConcertProgramModel model = new()
+            {
+                Id = program.Id,
+                StudentId = program.StudentId,
+                ProgramName = program.ProgramName,
+                TeacherId = program.TeacherId
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateConcertProgram(SetConcertProgramModel model)
+        {
+            await _concertProgramService.UpdateConcertProgram(model);
+            TempData["msg"] = "Changes Saved";
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpGet]
+        public async Task DeleteConcertProgram(int Id)
+        {
+            await _concertProgramService.RemoveFromConcertProgram(Id);
+        }
     }
 }

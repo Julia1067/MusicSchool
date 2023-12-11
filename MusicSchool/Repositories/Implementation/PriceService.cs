@@ -8,7 +8,6 @@ namespace MusicSchool.Repositories.Implementation
     public class PriceService : IPriceService
     {
         private readonly DatabaseContext databaseContext;
-        private readonly IScheduleService scheduleService;
 
         public PriceService(DatabaseContext databaseContext)
         {

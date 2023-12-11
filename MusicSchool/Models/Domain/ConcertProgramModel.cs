@@ -2,12 +2,16 @@
 {
     public class ConcertProgramModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public StudentModel Student { get; set; }
-        
-        public TeacherModel Teacher { get; set; }
+        public int StudentId { get; set; }
+
+        public int TeacherId { get; set; }
 
         public string ProgramName { get; set; }
+
+        public StudentModel Student { get; set; }
+
+        public TeacherModel Teacher { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicSchool.Models.Domain;
 
@@ -11,9 +12,11 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231211211306_DropConcertProgramTable")]
+    partial class DropConcertProgramTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,32 +311,6 @@ namespace MusicSchool.Migrations
                     b.ToTable("Classrooms");
                 });
 
-            modelBuilder.Entity("MusicSchool.Models.Domain.ConcertProgramModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ProgramName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("ConcertProgram");
-                });
-
             modelBuilder.Entity("MusicSchool.Models.Domain.PriceModel", b =>
                 {
                     b.Property<int>("Id")
@@ -568,25 +545,6 @@ namespace MusicSchool.Migrations
                     b.Navigation("Student");
 
                     b.Navigation("StudentGroup");
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("MusicSchool.Models.Domain.ConcertProgramModel", b =>
-                {
-                    b.HasOne("MusicSchool.Models.Domain.StudentModel", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MusicSchool.Models.Domain.TeacherModel", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
 
                     b.Navigation("Teacher");
                 });
