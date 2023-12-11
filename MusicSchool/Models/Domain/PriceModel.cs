@@ -6,6 +6,8 @@ namespace MusicSchool.Models.Domain
     {
         public int Id { get; set; }
 
+        public int ClassId { get; set; }
+
         [ForeignKey("ClassId")]
         public ClassModel Class { get; set; } 
 

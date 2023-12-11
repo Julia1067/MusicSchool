@@ -1,0 +1,19 @@
+﻿@using MusicSchool.Repositories.Abstract;
+@model List<MusicSchool.Models.Domain.PriceModel>
+@inject IPriceService priceService
+
+<table>
+    <tr>
+        <td>Дисципліна</td>
+        <td>Ціна</td>
+    </tr>
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>@priceService.GetCurrentClass(item.ClassId).ClassName</td>
+            <td>@item.Price</td>
+            <td><a href="/Admin/UpdatePrices?Id=@item.Id">Редагувати</a></td>
+        }
+    </tr>
+</table>
+    

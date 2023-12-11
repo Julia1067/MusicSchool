@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicSchool.Models.Domain;
 
@@ -11,9 +12,11 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231211143248_pricesUpdate")]
+    partial class pricesUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,6 +243,9 @@ namespace MusicSchool.Migrations
                     b.Property<string>("ClassName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PriceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Classes");
@@ -339,7 +345,7 @@ namespace MusicSchool.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClassId")
+                    b.Property<int?>("ClassId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -348,7 +354,8 @@ namespace MusicSchool.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ClassId] IS NOT NULL");
 
                     b.ToTable("Prices");
                 });
@@ -588,9 +595,7 @@ namespace MusicSchool.Migrations
                 {
                     b.HasOne("MusicSchool.Models.Domain.ClassModel", "Class")
                         .WithOne("Price")
-                        .HasForeignKey("MusicSchool.Models.Domain.PriceModel", "ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MusicSchool.Models.Domain.PriceModel", "ClassId");
 
                     b.Navigation("Class");
                 });

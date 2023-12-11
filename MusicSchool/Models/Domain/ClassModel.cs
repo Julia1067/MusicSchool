@@ -1,4 +1,6 @@
-﻿namespace MusicSchool.Models.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MusicSchool.Models.Domain
 {
     public class ClassModel
     {
@@ -7,8 +9,6 @@
         public string ClassName { get; set; }
 
         public List<ClassScheduleModel> ClassSchedule { get; set; }
-
-        public int?  PriceId { get; set; }
 
         public PriceModel Price { get; set; }
     }

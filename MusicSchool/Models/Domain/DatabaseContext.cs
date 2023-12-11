@@ -18,6 +18,7 @@ namespace MusicSchool.Models.Domain
         public DbSet<ClassScheduleModel> Schedule { get; set; }
         public DbSet<ClassModel> Classes { get; set; }
         public DbSet<ClassroomModel> Classrooms { get; set; }
-        public DbSet<ConcertProgramModel> ConcertPrograms { get; set; }
+        public DbSet<ConcertProgramModel> ConcertProgram { get; set; }
+        public DbSet<PriceModel> Prices { get; set; }
     }
 }

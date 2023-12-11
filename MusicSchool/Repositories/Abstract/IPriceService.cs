@@ -1,4 +1,5 @@
 ﻿using MusicSchool.Models.Domain;
+using MusicSchool.Models.DTO;
 
 namespace MusicSchool.Repositories.Abstract
 {
@@ -6,10 +7,12 @@ namespace MusicSchool.Repositories.Abstract
     {
         public List<PriceModel> GetAllPrices();
 
-        public Task SetPrices();
+        public Task SetPrices(SetPricesModel model);
 
-        public Task UpdatePrices(ClassModel extraClasse);
+        public Task UpdatePrices(SetPricesModel model);
 
-        public Task DeletePrices(ClassModel extraClass);
+        public ClassModel GetCurrentClass(int Id);
+
+        public PriceModel GetCurrentPrice(int Id);
     }
 }

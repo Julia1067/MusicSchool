@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MusicSchool.Models.Domain;
 using MusicSchool.Models.DTO;
 using MusicSchool.Repositories.Abstract;
+using MusicSchool.Repositories.Implementation;
 
 namespace MusicSchool.Controllers
 {
@@ -12,14 +13,17 @@ namespace MusicSchool.Controllers
         private readonly IUserConfirmationService _confirmationService;
         private readonly IAdminService _adminService;
         private readonly IScheduleService _scheduleService;
+        private readonly IPriceService _priceService;
 
         public AdminController(IUserConfirmationService confirmationService,
             IAdminService adminService,
-            IScheduleService scheduleService)
+            IScheduleService scheduleService,
+            IPriceService priceService)
         {
             _confirmationService = confirmationService;
             _adminService = adminService;
             _scheduleService = scheduleService;
+            _priceService = priceService;
         }
 
 
@@ -166,6 +170,48 @@ namespace MusicSchool.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult GetPrices()
+        {
+            var prices = _priceService.GetAllPrices();
+            return View(prices);
+        }
 
+        [HttpGet]
+        public IActionResult SetPrices()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetPrices(SetPricesModel model)
+        {
+            await _priceService.SetPrices(model);
+            TempData["msg"] = "Creation succed";
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpGet]
+        public IActionResult UpdatePrices(int Id)
+        {
+            var price = _priceService.GetCurrentPrice(Id);
+            var @class = _priceService.GetCurrentClass(price.ClassId);
+
+            SetPricesModel model = new()
+            {
+                ClassName = @class.ClassName,
+                Price = price.Price,
+                Id = price.Id
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePrices(SetPricesModel model)
+        {
+            await _priceService.UpdatePrices(model);
+            TempData["msg"] = "Changes Saved";
+            return Redirect(Request.Headers["Referer"].ToString());
+        } 
     }
 }

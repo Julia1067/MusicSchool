@@ -1,0 +1,50 @@
+﻿@using MusicSchool.Models.DTO;
+@using MusicSchool.Repositories.Abstract;
+@model SetPricesModel
+@inject IScheduleService scheduleService
+
+@{
+    var classes = await scheduleService.GetAllClasses();
+}
+
+<div class="center-cont-reg">
+    <div class="action">Оновлення даних</div>
+    <form method="post" asp-controller="Admin" asp-action="SetPrices" autocomplete="off">
+        <div class="form-container">
+            <div class="data-container-reg">
+                <div class="input-container">
+                    <label asp-for="ClassName" for="ClassName">Дисципліна</label>
+                    <select asp-for="ClassName" id="ClassName">
+                        @{
+                            foreach (var item in classes)
+                            {
+                                <option value="@item.ClassName">@item.ClassName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="message-box">
+                    <span asp-validation-for="ClassName"></span>
+                </div>
+                <div class="input-container">
+                    <label asp-for="Price" for="Price">Ціна</label>
+                    <input type="text" placeholder="ВВедіть суму" asp-for="Price">
+                </div>
+                <div class="message-box">
+                    <span asp-validation-for="Price"></span>
+                </div>
+
+
+            </div>
+            @if (TempData["msg"] != null)
+            {
+                <div class="message-box">
+                    <span class="text-info">@TempData["msg"]</span>
+                </div>
+            }
+            <div class="button-container">
+                <button class="btn-default" type="submit">Змінити</button>
+            </div>
+        </div>
+    </form>
+</div>
