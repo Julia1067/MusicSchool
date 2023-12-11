@@ -1,0 +1,28 @@
+﻿@using MusicSchool.Models.Domain;
+@model MusicSchool.Models.DTO.ClassScheduleViewModel
+
+<table>
+    <tr>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wendnesday</td>
+        <td>Thurthday</td>
+        <td>Friday</td>
+    </tr>
+    @{
+        foreach (KeyValuePair<int, List<ClassScheduleModel>> kv in Model.SchedulesByPosition)
+        {
+            <tr>
+                @{
+                    foreach (ClassScheduleModel scheduleItem in kv.Value)
+                    {
+                        <td>
+                            @scheduleItem.Class.ClassName
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    }
+    <
+</table>

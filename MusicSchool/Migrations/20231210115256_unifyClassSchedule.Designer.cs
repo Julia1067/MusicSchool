@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicSchool.Models.Domain;
 
@@ -11,9 +12,11 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231210115256_unifyClassSchedule")]
+    partial class unifyClassSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,14 +262,14 @@ namespace MusicSchool.Migrations
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClassPosition")
-                        .HasColumnType("int");
-
                     b.Property<int>("ClassType")
                         .HasColumnType("int");
 
                     b.Property<int>("ClassroomId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Fromdt")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("StudentGroupId")
                         .HasColumnType("int");
@@ -277,8 +280,11 @@ namespace MusicSchool.Migrations
                     b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WeekDay")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Todt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WeekDay")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -308,7 +314,7 @@ namespace MusicSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classrooms");
+                    b.ToTable("Classroomes");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.ConcertProgramModel", b =>

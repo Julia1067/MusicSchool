@@ -9,25 +9,23 @@ namespace MusicSchool.Controllers
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        private readonly DatabaseContext _context;
         private readonly IUserConfirmationService _confirmationService;
         private readonly IAdminService _adminService;
+        private readonly IScheduleService _scheduleService;
 
-        public AdminController(DatabaseContext context, 
-            IUserConfirmationService confirmationService, 
-            IAdminService adminService)
+        public AdminController(IUserConfirmationService confirmationService,
+            IAdminService adminService,
+            IScheduleService scheduleService)
         {
-            _context = context;
             _confirmationService = confirmationService;
             _adminService = adminService;
+            _scheduleService = scheduleService;
         }
 
 
         public IActionResult Display()
         {
-
             return View();
-
         }
 
         [Authorize(Roles = "admin")]
@@ -123,6 +121,51 @@ namespace MusicSchool.Controllers
         {
             await _adminService.DeleteTeacher(Email);
         }
+
+        [HttpGet]
+        public IActionResult ClassCreation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClassCreation(ScheduleCreationModel model)
+        {
+            await _scheduleService.ClassCreation(model);
+            TempData["msg"] = "Changes Saved";
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpGet]
+        public IActionResult ExtraClassCreation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ExtraClassCreation(ScheduleCreationModel model)
+        {
+            await _scheduleService.ExtraClassCreation(model);
+            TempData["msg"] = "Changes Saved";
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> StudentClassSchedule(int id)
+        {
+            var model = await _scheduleService.GetStudentSchedule(id);
+            
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> TeacherClassSchedule(int id)
+        {
+            var model = await _scheduleService.GetTeacherSchedule(id);
+
+            return View(model);
+        }
+
 
     }
 }

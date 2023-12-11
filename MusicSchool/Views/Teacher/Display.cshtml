@@ -1,0 +1,7 @@
+﻿@inject MusicSchool.Repositories.Abstract.IAdminService adminService
+@{
+    var teacher = adminService.GetCurrentTeacher(User.Identity.Name);
+}
+
+Вітаємо, @teacher.Name
+<a href="/Teacher/TeacherClassSchedule?Id=@teacher.Id">Переглянути графік</a>

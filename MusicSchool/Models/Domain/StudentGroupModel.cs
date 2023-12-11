@@ -8,6 +8,6 @@
 
         public List<StudentModel> Students { get; set; }
 
-        public List<ExtraClassScheduleModel> ExtraClassSchedule { get; set; }
+        public List<ClassScheduleModel> ExtraClassSchedule { get; set; }
     }
 }

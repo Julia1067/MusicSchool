@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicSchool.Models.Domain;
 
@@ -11,9 +12,11 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231210120558_addClassPosition")]
+    partial class addClassPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,7 +311,7 @@ namespace MusicSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classrooms");
+                    b.ToTable("Classroomes");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.ConcertProgramModel", b =>

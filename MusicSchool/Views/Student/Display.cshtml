@@ -1,0 +1,9 @@
+﻿@inject MusicSchool.Repositories.Abstract.IAdminService adminService
+@{
+    var student = adminService.GetCurrentStudent(User.Identity.Name);
+}
+
+Вітаємо, @student.Name
+<a href="/Student/StudentClassSchedule?Id=@student.Id">Переглянути графік</a>
+<a href="">Записатись на концертну програму</a>
+<a href="">Переглянути ціни</a>

@@ -8,6 +8,7 @@
         <td>Email</td>
         <td></td>
         <td></td>
+        <td></td>
     </tr>
     @{
         foreach (var item in adminService.GetTeacherList())
@@ -19,6 +20,7 @@
                 <td>@item.Email</td>
                 <td><a href="/Admin/UpdateTeacherInfo?Email=@item.Email">Змінити</a></td>
                 <td><a href="/Admin/TeacherDelete?Email=@item.Email">Видалити</a></td>
+                <td><a href="/Admin/TeacherClassSchedule?Id=@item.Id">Переглянуи графік</a></td>
             </tr>
         }
     }

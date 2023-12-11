@@ -8,8 +8,8 @@ namespace MusicSchool.Repositories.Abstract
 
         public Task SetPrices();
 
-        public Task UpdatePrices(ExtraClassModel extraClasse);
+        public Task UpdatePrices(ClassModel extraClasse);
 
-        public Task DeletePrices(ExtraClassModel extraClass);
+        public Task DeletePrices(ClassModel extraClass);
     }
 }

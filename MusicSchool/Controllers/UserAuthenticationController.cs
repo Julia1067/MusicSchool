@@ -33,6 +33,10 @@ namespace MusicSchool.Controllers
             {
                 if (model.Role == "admin")
                     return RedirectToAction("Display", "Admin");
+                else if(model.Role == "student")
+                    return RedirectToAction("Display", "Student");
+                else if (model.Role == "teacher")
+                    return RedirectToAction("Display", "Teacher");
                 else
                     return RedirectToAction("Display", "Dashboard");
             }

@@ -6,8 +6,8 @@ namespace MusicSchool.Models.Domain
     {
         public int Id { get; set; }
 
-        [ForeignKey("ExtraClassId")]
-        public ExtraClassModel Class { get; set; } 
+        [ForeignKey("ClassId")]
+        public ClassModel Class { get; set; } 
 
         [Column(TypeName = "money")]
         public decimal Price { get; set; }

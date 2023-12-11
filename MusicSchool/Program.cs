@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService
 builder.Services.AddScoped<IUserConfirmationService, UserConfirmationService>();
 
 builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<IScheduleService, ScheduleService>();
 
 var app = builder.Build();
 

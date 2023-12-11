@@ -1,0 +1,107 @@
+﻿@using MusicSchool.Models.DTO;
+@using MusicSchool.Repositories.Abstract;
+@model MusicSchool.Models.DTO.ScheduleCreationModel
+
+@inject IScheduleService scheduleService;
+@inject IAdminService adminService;
+
+@{
+    var classes = await scheduleService.GetAllClasses();
+    var classroomes = await scheduleService.GetAllClassroomes();
+    var teachers = adminService.GetTeacherList();
+    var students = adminService.GetStudentList();
+}
+
+<div class="center-cont-reg">
+    <div class="action">Оновлення даних</div>
+    <form method="post" asp-controller="Admin" asp-action="ClassCreation" autocomplete="off">
+        <div class="form-container">
+            <div class="data-container-reg">
+                <div class="part1">
+                    <div class="input-container">
+                        <label asp-for="ClassPosition" for="ClassPosition">Номер уроку</label>
+                        <input type="text" placeholder="0" asp-for="ClassPosition">
+                    </div>
+                    <div class="message-box">
+                        <span asp-validation-for="ClassPosition"></span>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="WeekDay" for="WeekDay">День тижня</label>
+                        <input type="text" asp-for="WeekDay" list="WeekDays">
+
+                        <datalist id="WeekDays">
+                            @{
+                                foreach (var item in Enum.GetValues(typeof(WorkingDayOfWeek)))
+                                {
+                                    <option>@item.ToString()</option>
+                                }
+                            }
+
+                        </datalist>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="ClassName" for="ClassName">Дисципліна</label>
+                        <input type="text" asp-for="ClassName" list="Classes">
+
+                        <datalist id="Classes">
+                            @{
+                                foreach (var item in classes)
+                                {
+                                    <option>@item.ClassName</option>
+                                }
+                            }
+
+                        </datalist>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="ClassroomId" for="ClassroomId">Аудиторія</label>
+                        <input type="text" asp-for="ClassroomId" list="Classroomes">
+
+                        <datalist id="Classroomes">
+                            @{
+                                foreach (var item in classroomes)
+                                {
+                                    <option>@item.Id</option>
+                                }
+                            }
+
+                        </datalist>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="TeacherId" for="TeacherId">Викладач</label>
+                        @*<input type="hidden" asp-for="TeacherId" list="teacher-select">*@
+                        <select asp-for="TeacherId" id="TeacherId">
+                            @{
+                                foreach (var item in teachers)
+                                {
+                                    <option value="@item.Id">@item.Name @item.LastName @item.Patronymic</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <label asp-for="StudentId" for="StudentId">Учень</label>
+                        @*<input type="hidden" asp-for="TeacherId" list="teacher-select">*@
+                        <select asp-for="StudentId" id="StudentId">
+                            @{
+                                foreach (var item in students)
+                                {
+                                    <option value="@item.Id">@item.Name @item.LastName @item.Patronymic</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            @if (TempData["msg"] != null)
+            {
+                <div class="message-box">
+                    <span class="text-info">@TempData["msg"]</span>
+                </div>
+            }
+            <div class="button-container">
+                <button class="btn-default" type="submit">Змінити</button>
+            </div>
+        </div>
+    </form>
+</div>

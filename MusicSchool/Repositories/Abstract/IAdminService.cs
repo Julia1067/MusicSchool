@@ -7,13 +7,19 @@ namespace MusicSchool.Repositories.Abstract
     {
         public StudentModel GetCurrentStudent(string Email);
 
+        public StudentModel GetCurrentStudent(int Id);
+
         public TeacherModel GetCurrentTeacher(string Email);
+
+        public TeacherModel GetCurrentTeacher(int Id);
 
         public Task UpdateStudentInfo(InfoChangeModel model);
 
         public Task UpdateTeacherInfo(InfoChangeModel model);
 
         public string GetCurrentGroup(string Email);
+
+        public StudentGroupModel GetCurrentGroup(int Id);
 
         public string GetCurrentPosition(string Email);
 

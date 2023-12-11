@@ -1,0 +1,46 @@
+﻿@using MusicSchool.Models.DTO;
+@using MusicSchool.Models.Domain;
+@model ClassScheduleModel[,]
+@inject MusicSchool.Repositories.Abstract.IAdminService adminService
+@inject MusicSchool.Repositories.Abstract.IScheduleService scheduleService
+
+<table>
+    <tr>
+        @{
+            <td></td>
+            foreach (var item in Enum.GetValues(typeof(WorkingDayOfWeek)))
+            {
+                <td>@item.ToString()</td>
+            }
+        }
+    </tr>
+    @{
+        @for (int i = 0; i < Model.GetLength(0); i++)
+        {
+            <tr>
+                <td><p>@(i + 1)</p></td>
+                @for (int j = 0; j < Model.GetLength(1); j++)
+                {
+                    <td>
+                        @if (Model[i, j] != null)
+                        {
+                            var teacher = adminService.GetCurrentTeacher(Model[i, j].TeacherId);
+                            var currentClass = scheduleService.GetCurrentClass(Model[i, j].ClassId).ClassName;
+                            <p>
+                                @teacher.LastName @teacher.Name @teacher.Patronymic
+                            </p>
+                            <p>
+                                @currentClass
+                            </p>
+                            <p>
+                                Аудиторія: @Model[i, j].ClassroomId
+                            </p>
+                            
+
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    }
+</table>

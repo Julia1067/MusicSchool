@@ -43,9 +43,20 @@ namespace MusicSchool.Repositories.Implementation
         {
             var student = databaseContext.Students.FirstOrDefault(s => s.Email == Email);
 
+            if (student.StudentGroupId == null)
+                return " ";
+
             var group = databaseContext.StudentGroups.FirstOrDefault(g => g.Id == student.StudentGroupId);
 
             return group.Name;
+        }
+
+        public StudentGroupModel GetCurrentGroup(int Id)
+        {
+            
+            var group = databaseContext.StudentGroups.FirstOrDefault(g => g.Id == Id);
+
+            return group;
         }
 
         public string GetCurrentPosition(string Email)
@@ -65,9 +76,19 @@ namespace MusicSchool.Repositories.Implementation
             return databaseContext.Students.FirstOrDefault(s => s.Email == Email);
         }
 
+        public StudentModel GetCurrentStudent(int Id)
+        {
+            return databaseContext.Students.FirstOrDefault(s => s.Id == Id);
+        }
+
         public TeacherModel GetCurrentTeacher(string Email)
         {
             return databaseContext.Teachers.FirstOrDefault(s => s.Email == Email);
+        }
+
+        public TeacherModel GetCurrentTeacher(int Id)
+        {
+            return databaseContext.Teachers.FirstOrDefault(s => s.Id == Id);
         }
 
         public List<StudentGroupModel> GetStudentGroupList()

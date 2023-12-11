@@ -1,19 +1,29 @@
-﻿using MusicSchool.Models.Domain;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MusicSchool.Models.Domain;
+using MusicSchool.Models.DTO;
 
 namespace MusicSchool.Repositories.Abstract
 {
     public interface IScheduleService
     {
-        public List<ClassScheduleModel> GetSchedule(string WeekDay, StudentModel student);
+        public Task<ClassScheduleModel[,]> GetStudentSchedule(int Id);
 
-        public List<ExtraClassScheduleModel> GetStudentExtraSchedule(string WeekDay, StudentGroupModel group);
+        public Task<ClassScheduleModel[,]> GetTeacherSchedule( int Id);
 
-        public List<ClassScheduleModel> GetTeacherSchedule(string WeekDay, TeacherModel teacher);
+        public Task ClassCreation(ScheduleCreationModel model);
 
-        public List<ExtraClassScheduleModel> GetExtraTeacherSchedule(string WeekDay, TeacherModel teacher);
+        public Task ExtraClassCreation(ScheduleCreationModel model);
 
         public Task ScheduleUpdate();
 
         public Task ExtraScheduleUpdate();
+
+        public Task<ClassModel[]> GetAllClasses();
+
+        public Task<ClassroomModel[]> GetAllClassroomes();
+
+        public ClassroomModel GetCurrentClassroom(int Id);
+
+        public ClassModel GetCurrentClass(int Id);
     }
 }

@@ -27,6 +27,5 @@ namespace MusicSchool.Models.Domain
 
         public List<ClassScheduleModel> ClassSchedule { get; set; }
 
-        public List<ExtraClassScheduleModel> ExtraClassSchedule { get; set; }
     }
 }
