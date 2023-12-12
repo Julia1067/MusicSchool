@@ -1,8 +1,7 @@
-﻿@inject MusicSchool.Repositories.Abstract.IAdminService adminService;
-
-<a href="/Admin/TeacherListSortedBySalary">Сортувати за зарплатнею</a>
-
-<a href="/Admin/TeacherListSortedByPositions">Сортувати за позицією</a>
+﻿@using MusicSchool.Models.Domain;
+@using MusicSchool.Repositories.Abstract;
+@model List<TeacherModel>
+@inject IAdminService adminService
 
 <table>
     <tr>
@@ -15,7 +14,7 @@
         <td></td>
     </tr>
     @{
-        foreach (var item in adminService.GetTeacherList())
+        foreach (var item in Model)
         {
             <tr>
                 <td>@item.LastName @item.Name @item.Patronymic</td>

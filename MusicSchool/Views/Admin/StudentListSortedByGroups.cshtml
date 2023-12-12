@@ -1,0 +1,42 @@
+﻿@using MusicSchool.Models.Domain;
+@using MusicSchool.Repositories.Abstract;
+@model List<StudentModel>
+@inject IAdminService adminService
+
+@{
+    var groups = adminService.GetStudentGroupList();
+
+    foreach (var itemGroup in groups)
+    {
+        <h2>@itemGroup.Name</h2>
+        <table>
+            <tr>
+                <td>ПІБ</td>
+                <td>Група</td>
+                <td>Дата народження</td>
+                <td>Email</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            @{
+                foreach (var itemStudent in adminService.GetStudentList(itemGroup.Id))
+                {
+
+                    <tr>
+                        @*<td>@item.LastName</td>*@
+                        <td>@itemStudent.LastName @itemStudent.Name @itemStudent.Patronymic</td>
+                        <td>@adminService.GetCurrentGroup(itemStudent.Email)</td>
+                        <td>@itemStudent.BirthDay.ToShortDateString()</td>
+                        <td>@itemStudent.Email</td>
+                        <td><a href="/Admin/UpdateStudentInfo?Email=@itemStudent.Email">Змінити</a></td>
+                        <td><a href="/Admin/StudentDelete?Email=@itemStudent.Email">Видалити</a></td>
+                        <td><a href="/Admin/StudentClassSchedule?Id=@itemStudent.Id">Переглянуи графік</a></td>
+                    </tr>
+
+
+                }
+            }
+        </table>
+    }
+}

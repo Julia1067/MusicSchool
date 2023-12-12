@@ -6,8 +6,8 @@ namespace MusicSchool.Repositories.Abstract
     public interface IUserConfirmationService
     {
         public List<UnconfirmedUserModel> GetAllUnconfirmedUsers();
-        public Task<StatusModel> ConfirmAsTeacher(string Email);
-        public Task<StatusModel> ConfirmAsStudent(string Email);
-        public Task<StatusModel> LeaveUnconfirmed(string Email);
+        public Task ConfirmAsTeacher(string Email);
+        public Task ConfirmAsStudent(string Email);
+        public Task LeaveUnconfirmed(string Email);
     }
 }

@@ -29,7 +29,7 @@ namespace MusicSchool.Controllers
             if (!ModelState.IsValid)
                 return View(model);
             var result = await authService.LoginAsync(model);
-            if (result.StatusCode == 1)
+            if (result == "User logged in successfully")
             {
                 if (model.Role == "admin")
                     return RedirectToAction("Display", "Admin");
@@ -42,7 +42,7 @@ namespace MusicSchool.Controllers
             }
             else
             {
-                TempData["msg"] = result.StatusMessage;
+                TempData["msg"] = result;
                 return RedirectToAction(nameof(Login));
             }
         }
@@ -58,7 +58,7 @@ namespace MusicSchool.Controllers
             if (!ModelState.IsValid) { return View(model); }
             model.Role = "user";
             var result = await this.authService.RegistrationAsync(model);
-            TempData["msg"] = result.StatusMessage;
+            TempData["msg"] = result;
             return RedirectToAction(nameof(Login));
         }
 
@@ -75,7 +75,7 @@ namespace MusicSchool.Controllers
                 Role = "admin"
             };
             var result = await authService.RegistrationAsync(model);
-            return Ok(result.StatusMessage);
+            return Ok(result);
         }
 
         [Authorize]

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicSchool.Models.Domain;
 using MusicSchool.Models.DTO;
 using MusicSchool.Repositories.Abstract;
+using System.Text.RegularExpressions;
 
 namespace MusicSchool.Repositories.Implementation
 {
@@ -101,18 +102,9 @@ namespace MusicSchool.Repositories.Implementation
             return databaseContext.Students.Include(s => s.StudentGroup).ToList();
         }
 
-        public List<StudentModel> GetStudentList(string Groups)
+        public List<StudentModel> GetStudentList(int GroupId)
         {
-            var group = databaseContext.StudentGroups.Where(g => g.Name == Groups).ToList();
-            List<StudentModel> students = new();
-            foreach (var item in group)
-            {
-                students.Add(databaseContext.Students
-                    .Where(s => s.StudentGroup == item)
-                    .Include(s => s.StudentGroup)
-                    .FirstOrDefault());
-            } 
-            return students;
+            return databaseContext.Students.Where(s => s.StudentGroupId == GroupId).ToList();
         }
 
         public List<TeacherModel> GetTeacherList()
@@ -120,20 +112,14 @@ namespace MusicSchool.Repositories.Implementation
             return databaseContext.Teachers.ToList();
         }
 
-        public List<TeacherModel> GetTeacherList(decimal Salary)
+        public List<TeacherModel> GetTeacherListSorted()
         {
-            return databaseContext.Teachers.Where(t => t.Salary == Salary).ToList();
+            return databaseContext.Teachers.OrderBy(x => x.Salary).ToList();
         }
 
-        public List<TeacherModel> GetTeacherList(string Position)
+        public List<TeacherModel> GetTeacherList(int PositionId)
         {
-            var positions = databaseContext.TeachersPositions.Where(p => p.Name == Position).ToList();
-            List<TeacherModel> teachers = new();
-            foreach (var item in positions)
-            {
-                teachers.Add(databaseContext.Teachers.Where(t => t.Position == item).Include(t => t.Position).FirstOrDefault());
-            }
-            return teachers;
+            return databaseContext.Teachers.Where(s => s.PositionId == PositionId).ToList();
         }
 
         public List<TeacherPositionModel> GetTeacherPositionList()

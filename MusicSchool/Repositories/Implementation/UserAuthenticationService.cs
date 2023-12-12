@@ -27,23 +27,21 @@ namespace MusicSchool.Repositories.Implementation
             this.databaseContext = databaseContext;
         }
 
-        public async Task<StatusModel> LoginAsync(LoginModel model)
+        public async Task<string> LoginAsync(LoginModel model)
         {
-            var status = new StatusModel();
             var user = await userManager.FindByNameAsync(model.Email);
 
+            string status;
 
             if (user == null)
             {
-                status.StatusCode = 0;
-                status.StatusMessage = "Invalid username";
+                status  = "Invalid username";
                 return status;
             }
 
             if (!await userManager.CheckPasswordAsync(user, model.Password))
             {
-                status.StatusCode = 0;
-                status.StatusMessage = "Invalid password";
+                status = "Invalid password";
                 return status;
             }
 
@@ -55,8 +53,7 @@ namespace MusicSchool.Repositories.Implementation
                 {
                     new Claim(ClaimTypes.Name, user.Name)
                 };
-                status.StatusCode = 1;
-                status.StatusMessage = "User logged in successfully";
+                status = "User logged in successfully";
 
                 //user = await databaseContext.Users.FirstOrDefaultAsync(x => x.Email == model.Email);
                 //string userId = user.Id;
@@ -69,14 +66,12 @@ namespace MusicSchool.Repositories.Implementation
             }
             else if (signInResult.IsLockedOut)
             {
-                status.StatusCode = 0;
-                status.StatusMessage = "User locked out";
+                status = "User locked out";
                 return status;
             }
             else
             {
-                status.StatusCode = 0;
-                status.StatusMessage = "Error on loggin in";
+                status = "Error on loggin in";
                 return status;
             }
         }
@@ -86,14 +81,13 @@ namespace MusicSchool.Repositories.Implementation
             await signInManager.SignOutAsync();
         }
 
-        public async Task<StatusModel> RegistrationAsync(RegistrationModel model)
+        public async Task<string> RegistrationAsync(RegistrationModel model)
         {
-            var status = new StatusModel();
+            string status;
             var userExists = await userManager.FindByNameAsync(model.Email);
             if (userExists != null)
             {
-                status.StatusCode = 0;
-                status.StatusMessage = "User already exists";
+                status = "User already exists";
                 return status;
             }
 
@@ -132,14 +126,12 @@ namespace MusicSchool.Repositories.Implementation
 
             if (!result.Succeeded)
             {
-                status.StatusCode = 0;
-                status.StatusMessage = "User creation failed";
+                status = "User creation failed";
                 return status;
             }
 
             databaseContext.SaveChanges();
-            status.StatusCode = 1;
-            status.StatusMessage = "User has registered successfully";
+            status = "User has registered successfully";
             return status;
         }
     }

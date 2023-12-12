@@ -12,17 +12,9 @@
         <div class="form-container">
             <div class="data-container-reg">
                 <input asp-for="Id" hidden="hidden" value="@Model.Id" />
-                <div class="input-container">
-                    <label asp-for="StudentId" for="StudentId">Учень</label>
-                    <select asp-for="StudentId" id="StudentId">
-                        @{
-                            foreach (var item in student)
-                            {
-                                <option value="@item.Id">@item.LastName @item.Name @item.Patronymic</option>
-                            }
-                        }
-                    </select>
-                </div>
+
+                <input asp-for="StudentId" hidden="hidden" value="@Model.StudentId" />
+                
                 <div class="message-box">
                     <span asp-validation-for="StudentId"></span>
                 </div>

@@ -21,7 +21,7 @@ namespace MusicSchool.Repositories.Implementation
             this.roleManager = roleManager;
         }
 
-        public async Task<StatusModel> ConfirmAsStudent(string Email)
+        public async Task ConfirmAsStudent(string Email)
         {
             var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Email == Email);
             string role = "student";
@@ -44,10 +44,9 @@ namespace MusicSchool.Repositories.Implementation
 
             await LeaveUnconfirmed(Email);
 
-            return new StatusModel() { StatusCode = 1 };
         }
 
-        public async Task<StatusModel> ConfirmAsTeacher(string Email)
+        public async Task ConfirmAsTeacher(string Email)
         {
             var user = await databaseContext.Users.FirstOrDefaultAsync(u => u.Email == Email);
             string role = "teacher";
@@ -71,15 +70,13 @@ namespace MusicSchool.Repositories.Implementation
 
             await LeaveUnconfirmed(Email);
 
-            return new StatusModel() { StatusCode = 1 };
         }
 
-        public async Task<StatusModel> LeaveUnconfirmed(string Email)
+        public async Task LeaveUnconfirmed(string Email)
         {
             var user = databaseContext.UnconfirmedUsers.FirstOrDefault(x => x.Email == Email);
             databaseContext.UnconfirmedUsers.Remove(user);
             await databaseContext.SaveChangesAsync();
-            return new StatusModel() { StatusCode = 1 };
         }
 
         public  List<UnconfirmedUserModel> GetAllUnconfirmedUsers()

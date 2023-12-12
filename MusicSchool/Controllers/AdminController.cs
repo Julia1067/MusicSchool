@@ -63,6 +63,12 @@ namespace MusicSchool.Controllers
             return View(students);
         }
 
+        public IActionResult StudentListSortedByGroups()
+        {
+            var students = _adminService.GetStudentList();
+            return View(students);
+        }
+
         public IActionResult UpdateStudentInfo(string Email)
         {
             var student = _adminService.GetCurrentStudent(Email);
@@ -89,6 +95,18 @@ namespace MusicSchool.Controllers
         }
 
         public IActionResult TeacherList()
+        {
+            var teachers = _adminService.GetTeacherList();
+            return View(teachers);
+        }
+
+        public IActionResult TeacherListSortedBySalary()
+        {
+            var teachers = _adminService.GetTeacherListSorted();
+            return View(teachers);
+        }
+
+        public IActionResult TeacherListSortedByPositions()
         {
             var teachers = _adminService.GetTeacherList();
             return View(teachers);

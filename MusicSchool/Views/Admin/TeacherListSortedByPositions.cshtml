@@ -1,0 +1,42 @@
+﻿@using MusicSchool.Models.Domain;
+@using MusicSchool.Repositories.Abstract;
+@model List<TeacherModel>
+@inject IAdminService adminService
+
+@{
+    var positions = adminService.GetTeacherPositionList();
+
+    foreach (var itemPosition in positions)
+    {
+        <h2>@itemPosition.Name</h2>
+        <table>
+            <tr>
+                
+                <td>ПІБ</td>
+                <td>Позиція</td>
+                <td>Дата народження</td>
+                <td>Email</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            @{
+                foreach (var itemTeacher in adminService.GetTeacherList(itemPosition.Id))
+                {
+
+                    <tr>
+                        <td>@itemTeacher.LastName @itemTeacher.Name @itemTeacher.Patronymic</td>
+                        <td>@adminService.GetCurrentPosition(itemTeacher.Email)</td>
+                        <td>@itemTeacher.BirthDay.ToShortDateString()</td>
+                        <td>@itemTeacher.Email</td>
+                        <td><a href="/Admin/UpdateTeacherInfo?Email=@itemTeacher.Email">Змінити</a></td>
+                        <td><a href="/Admin/TeacherDelete?Email=@itemTeacher.Email">Видалити</a></td>
+                        <td><a href="/Admin/TeacherClassSchedule?Id=@itemTeacher.Id">Переглянуи графік</a></td>
+                    </tr>
+
+
+                }
+            }
+        </table>
+    }
+}

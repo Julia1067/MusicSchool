@@ -4,8 +4,8 @@ namespace MusicSchool.Repositories.Abstract
 {
     public interface IUserAuthenticationService
     {
-        public Task<StatusModel> RegistrationAsync(RegistrationModel model);
-        public Task<StatusModel> LoginAsync(LoginModel model);
+        public Task<string> RegistrationAsync(RegistrationModel model);
+        public Task<string> LoginAsync(LoginModel model);
         public Task LogoutAsync();
     }
 }

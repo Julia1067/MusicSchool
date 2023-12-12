@@ -29,13 +29,13 @@ namespace MusicSchool.Repositories.Abstract
 
         public List<StudentModel> GetStudentList();
 
-        public List<StudentModel> GetStudentList(string Groups);
+        public List<StudentModel> GetStudentList(int GroupId);
 
         public List<TeacherModel> GetTeacherList();
 
-        public List<TeacherModel> GetTeacherList(decimal Salary);
+        public List<TeacherModel> GetTeacherListSorted();
 
-        public List<TeacherModel> GetTeacherList(string Position);
+        public List<TeacherModel> GetTeacherList(int PositionId);
 
         public List<StudentGroupModel> GetStudentGroupList();
 

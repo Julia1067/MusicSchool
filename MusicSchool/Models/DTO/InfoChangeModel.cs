@@ -18,18 +18,23 @@ namespace MusicSchool.Models.DTO
         [Required]
         public string Patronymic { get; set; }
 
-        
-        public DateTime BirthDay { get; set; }
-        
-        public StudentGroupModel StudentGroup { get; set; }
-
         public string StudentGroupName { get; set; }
-
-        public TeacherPositionModel Position { get; set; }
 
         public string PositionName { get; set; }
 
+        public DateTime BirthDay { get; set; }
+
         [Column(TypeName = "money")]
         public decimal Salary { get; set; }
+
+        public StudentGroupModel StudentGroup { get; set; }
+
+        public TeacherPositionModel Position { get; set; }
+
+
+
+        
+
+        
     }
 }
