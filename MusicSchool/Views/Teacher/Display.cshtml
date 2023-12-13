@@ -3,5 +3,5 @@
     var teacher = adminService.GetCurrentTeacher(User.Identity.Name);
 }
 
-Вітаємо, @teacher.Name
-<a href="/Teacher/TeacherClassSchedule?Id=@teacher.Id">Переглянути графік</a>
+<div style="text-align:center">Вітаємо, @teacher.Name</div>
+<a class="functions" href="/Teacher/TeacherClassSchedule?Id=@teacher.Id">Переглянути графік</a>

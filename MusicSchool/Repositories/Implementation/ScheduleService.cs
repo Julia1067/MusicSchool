@@ -90,6 +90,12 @@ namespace MusicSchool.Repositories.Implementation
             classes.AddRange(reg_classes);
             classes.AddRange(extra_classes);
 
+            if (classes.Count == 0)
+            {
+                ClassScheduleModel[,] nullClassesSchedule = new ClassScheduleModel[5, 5];
+                return nullClassesSchedule;
+            }
+
             var maxPos = classes.Max(x => x.ClassPosition);
             maxPos = Math.Max(5, maxPos);
 
@@ -112,6 +118,12 @@ namespace MusicSchool.Repositories.Implementation
             var teacher = await databaseContext.Teachers.FirstOrDefaultAsync(x => x.Id == Id);
 
             var classes = databaseContext.Schedule.Where(s => s.TeacherId == teacher.Id).ToArray();
+
+            if (classes.Length == 0)
+            {
+                ClassScheduleModel[,] nullClassesSchedule = new ClassScheduleModel[5, 5];
+                return nullClassesSchedule;
+            }
 
             var maxPos = classes.Max(x => x.ClassPosition);
             maxPos = Math.Max(5, maxPos);

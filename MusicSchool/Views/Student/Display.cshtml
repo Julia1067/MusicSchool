@@ -3,7 +3,7 @@
     var student = adminService.GetCurrentStudent(User.Identity.Name);
 }
 
-Вітаємо, @student.Name
-<a href="/Student/StudentClassSchedule?Id=@student.Id">Переглянути графік</a>
-<a href="">Записатись на концертну програму</a>
-<a href="">Переглянути ціни</a>
+<div style="text-align: center">Вітаємо, @student.Name</div>
+<a class="functions" href="/Student/StudentClassSchedule?Id=@student.Id">Переглянути графік</a>
+<a class="functions" href="/Student/SetConcertProgram?Id=@student.Id">Записатись на концертну програму</a>
+<a class="functions" href="/Student/GetPrices">Переглянути ціни</a>

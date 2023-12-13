@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MusicSchool.Models.DTO;
 using MusicSchool.Repositories.Abstract;
 using MusicSchool.Repositories.Implementation;
+using System.Runtime.CompilerServices;
 
 namespace MusicSchool.Controllers
 {
@@ -12,14 +13,17 @@ namespace MusicSchool.Controllers
         private readonly IScheduleService _scheduleService;
         private readonly IConcertProgramService _concertProgramService;
         private readonly IPriceService _priceService;
+        private readonly IAdminService _adminService;
 
-        public StudentController(IScheduleService scheduleService, 
-            IConcertProgramService concertProgramService, 
-            IPriceService priceService)
+        public StudentController(IScheduleService scheduleService,
+            IConcertProgramService concertProgramService,
+            IPriceService priceService,
+            IAdminService adminService)
         {
             _scheduleService = scheduleService;
             _concertProgramService = concertProgramService;
             _priceService = priceService;
+            _adminService = adminService;
         }
 
         public IActionResult Display()
@@ -36,9 +40,13 @@ namespace MusicSchool.Controllers
         }
 
         [HttpGet]
-        public IActionResult SetConcertProgram()
+        public IActionResult SetConcertProgram(int Id)
         {
-            return View();
+            SetConcertProgramModel model = new()
+            {
+                StudentId = Id,
+            };
+            return View(model);
         }
 
         [HttpPost]

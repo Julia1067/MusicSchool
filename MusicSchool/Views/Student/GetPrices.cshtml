@@ -7,11 +7,12 @@
         <td>Дисципліна</td>
         <td>Ціна</td>
     </tr>
-    <tr>
         @foreach (var item in Model)
         {
+            <tr>
             <td>@priceService.GetCurrentClass(item.ClassId).ClassName</td>
             <td>@item.Price</td>
+            </tr>
         }
-    </tr>
+    
 </table>

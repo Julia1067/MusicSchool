@@ -1,13 +1,12 @@
-*{
-    
+* {
 }
 
-header{
+header {
     width: 100vw;
     height: 10vh;
 }
 
-.logo{
+.logo {
     color: white;
     display: flex;
     justify-content: center;
@@ -18,16 +17,16 @@ header{
 body {
     background: black;
     color: white;
-    
 }
+
 form {
-    
     border-radius: 0.5em;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
 }
+
 main {
     margin: 0;
     padding: 0;
@@ -36,6 +35,7 @@ main {
     justify-content: center;
     display: grid;
 }
+
 .center-cont {
     width: 30em;
     height: 60vh;
@@ -46,9 +46,9 @@ main {
     top: 50%;
     transform: translateY(-70%);
     background: #151515;
-    
 }
-.action{
+
+.action {
     font-size: 40px;
     text-align: center;
     /*margin: 0.5em;*/
@@ -58,6 +58,7 @@ main {
     margin: 1.5em;
     display: grid;
 }
+
 input {
     background: #151515;
     border: none;
@@ -66,19 +67,22 @@ input {
     margin-top: 2em;
     color: #9b9b9b
 }
+
     input:focus {
         border: none;
         outline: 0;
         border-bottom: 2px solid #a371be;
     }
+
 label {
     color: #a371be
 }
 
-.button-container{
+.button-container {
     text-align: center;
     margin-top: 3em;
 }
+
 button {
     width: 7em;
     height: 2.5em;
@@ -87,9 +91,11 @@ button {
     border-radius: 10px;
     border: none;
 }
-button:hover {
+
+    button:hover {
         border: 3px solid #a371be;
-}
+    }
+
 .ref {
     text-align: center;
     margin-top: 1em;
@@ -98,17 +104,19 @@ button:hover {
 a {
     font-size: 10px;
     color: #9b9b9b;
+    text-align: center;
 }
 
-a:hover{
-    color: #535353;
-}
+    a:hover {
+        color: #535353;
+    }
 
-.message-box{
+.message-box {
     margin-left: 1.5em;
     color: #b7b7b7
 }
-.data-container-reg{
+
+.data-container-reg {
     display: flex;
 }
 
@@ -122,31 +130,37 @@ a:hover{
     top: 50%;
     transform: translateY(-70%);
     background: #151515;
+    display: grid;
+    justify-content: center;
 }
 
-.part1{
+.part1 {
     border-right: 1px solid #535353;
 }
+
 .reg {
     margin: auto;
     position: relative;
     top: 50%;
     transform: translateY(-60%);
 }
-.adm-func{
+
+.adm-func {
     font-size: 20px;
-    text-decoration:none;
-
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
 }
-.users{
-    
+
+.users {
     display: grid;
-
 }
+
 .users-cont {
     display: flex;
     height: 20em;
 }
+
 .user1 {
     display: flex;
     background: #151515;
@@ -154,18 +168,22 @@ a:hover{
     border-radius: 1em;
     width: 50em;
 }
+
 .user2 {
     display: flex;
     background: #151515;
     border-radius: 1em;
     width: 50em;
 }
-.info{
+
+.info {
     display: flex;
 }
-.label{
+
+.label {
     width: 10em;
 }
+
 .act {
     flex-wrap: wrap;
     margin-left: 5vw;
@@ -185,9 +203,113 @@ a:hover{
     word-break: keep-all;
     margin-right: 5em;
 }
+
 .user-cont {
     margin-left: 5em;
     position: relative;
     top: 50%;
     transform: translateY(-21%);
+}
+
+select {
+    margin-top: 2em;
+    background: #a371be;
+    border-radius: 0.3em;
+    height: 2em;
+}
+
+.cont {
+    width: 100vw;
+    justify-content: center;
+    display: flex;
+}
+
+#concert-program {
+    width: 100em;
+    margin-top: 5em;
+    display: grid;
+    justify-content: center;
+    font-size: 15px
+}
+#concert-program td, #concert-program th {
+   
+    padding: 8px;
+    width: 10em;
+    text-align: center;
+}
+#concert-program td:hover {
+    background: #141414;
+}
+.functions {
+    text-decoration: none;
+    font-size: 15px;
+    word-break: keep-all;
+}
+
+#price {
+    width: 100em;
+    margin-top: 5em;
+    display: grid;
+    justify-content: center;
+    font-size: 15px;
+}
+
+#price td, #price th {
+    padding: 8px;
+    width: 10em;
+    text-align: center;
+}
+
+    #price td:hover {
+        background: #141414;
+    }
+
+.classNmae{
+    font-size: 15px;
+    color: #8f8f8f;
+}
+
+.data-reg{
+    display: grid;
+}
+
+#schedule {
+    width: 100em;
+    display: grid;
+    justify-content: center;
+    font-size: 15px;
+}
+
+#schedule td, #schedule th {
+    padding: 8px;
+    width: 15em;
+    height: 10em;
+    text-align: center;
+}
+
+#schedule td:hover {
+    background: #141414;
+}
+
+#list {
+    width: 100em;
+    display: grid;
+    justify-content: center;
+    font-size: 15px;
+}
+
+#list td, #list th {
+    padding: 8px;
+    width: 15em;
+    height: 10em;
+    text-align: center;
+}
+
+    #list td:hover {
+        background: #141414;
+    }
+
+.func-cont{
+    display: grid;
+    height: 5em;
 }

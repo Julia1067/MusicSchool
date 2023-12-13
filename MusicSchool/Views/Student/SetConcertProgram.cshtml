@@ -6,26 +6,19 @@
 @{
     var teacher = adminService.GetTeacherList();
     var student = adminService.GetStudentList();
+
+    var currentStudent = adminService.GetCurrentStudent(Model.StudentId);
 }
 
 <div class="center-cont-reg">
-    <div class="action">Оновлення даних</div>
-    <form method="post" asp-controller="Admin" asp-action="SetConcertProgram" autocomplete="off">
+    <div class="action">Запис на концертну програму</div>
+    <form method="post" asp-controller="Student" asp-action="SetConcertProgram" autocomplete="off">
         <div class="form-container">
-            <div class="data-container-reg">
+            <div class="data-reg">
                 <div class="input-container">
-                    <label asp-for="StudentId" for="StudentId">Учень</label>
-                    <select asp-for="StudentId" id="StudentId">
-                        @{
-                            foreach (var item in student)
-                            {
-                                <option value="@item.Id">@item.LastName @item.Name @item.Patronymic</option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="message-box">
-                    <span asp-validation-for="StudentId"></span>
+                    <h4 style="text-align: center">@currentStudent.LastName @currentStudent.Name @currentStudent.Patronymic </h4>
+                    <input asp-for="StudentId" hidden="hidden" value="@Model.StudentId" />
+
                 </div>
                 <div class="input-container">
                     <label asp-for="TeacherId" for="TeacherId">Викладач</label>
@@ -42,7 +35,7 @@
                     <span asp-validation-for="TeacherId"></span>
                 </div>
                 <div class="input-container">
-                    <label asp-for="ProgramName" for="ProgramName">Ціна</label>
+                    <label asp-for="ProgramName" for="ProgramName">Програма</label>
                     <input type="text" placeholder="ProgramName" asp-for="ProgramName">
                 </div>
                 <div class="message-box">

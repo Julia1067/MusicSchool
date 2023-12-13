@@ -1,15 +1,18 @@
 ﻿@inject MusicSchool.Repositories.Abstract.IAdminService adminService;
 
-<a href="/Admin/TeacherListSortedBySalary">Сортувати за зарплатнею</a>
+<div class="cont">
+    <div class="func-cont">
+    <a class="functions" href="/Admin/TeacherListSortedBySalary">Сортувати за зарплатнею</a>
 
-<a href="/Admin/TeacherListSortedByPositions">Сортувати за позицією</a>
-
-<table>
+    <a class="functions" href="/Admin/TeacherListSortedByPositions">Сортувати за позицією</a>
+    </div>
+<table id="list">
     <tr>
         <td>ПІБ</td>
         <td>Позиція</td>
         <td>Дата народження</td>
         <td>Email</td>
+        <td>Зарплатня</td>
         <td></td>
         <td></td>
         <td></td>
@@ -22,10 +25,12 @@
                 <td>@adminService.GetCurrentPosition(item.Email)</td>
                 <td>@item.BirthDay.ToShortDateString()</td>
                 <td>@item.Email</td>
-                <td><a href="/Admin/UpdateTeacherInfo?Email=@item.Email">Змінити</a></td>
-                <td><a href="/Admin/TeacherDelete?Email=@item.Email">Видалити</a></td>
-                <td><a href="/Admin/TeacherClassSchedule?Id=@item.Id">Переглянуи графік</a></td>
+                <td>@item.Salary</td>
+                <td><a class="functions" href="/Admin/UpdateTeacherInfo?Email=@item.Email">Змінити</a></td>
+                <td><a class="functions" href="/Admin/TeacherDelete?Email=@item.Email">Видалити</a></td>
+                <td><a class="functions" href="/Admin/TeacherClassSchedule?Id=@item.Id">Переглянуи графік</a></td>
             </tr>
         }
     }
 </table>
+</div>

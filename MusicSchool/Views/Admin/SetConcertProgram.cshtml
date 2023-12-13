@@ -9,10 +9,10 @@
 }
 
 <div class="center-cont-reg">
-    <div class="action">Оновлення даних</div>
+    <div class="action">Створення пронрами</div>
     <form method="post" asp-controller="Admin" asp-action="SetConcertProgram" autocomplete="off">
         <div class="form-container">
-            <div class="data-container-reg">
+            <div class="data-reg">
                 <div class="input-container">
                     <label asp-for="StudentId" for="StudentId">Учень</label>
                     <select asp-for="StudentId" id="StudentId">
@@ -58,7 +58,7 @@
                 </div>
             }
             <div class="button-container">
-                <button class="btn-default" type="submit">Змінити</button>
+                <button class="btn-default" type="submit">Створити</button>
             </div>
         </div>
     </form>

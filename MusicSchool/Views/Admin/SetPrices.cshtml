@@ -8,7 +8,7 @@
 }
 
 <div class="center-cont-reg">
-    <div class="action">Оновлення даних</div>
+    <div class="action">Створення даних</div>
     <form method="post" asp-controller="Admin" asp-action="SetPrices" autocomplete="off">
         <div class="form-container">
             <div class="data-container-reg">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="input-container">
                     <label asp-for="Price" for="Price">Ціна</label>
-                    <input type="text" placeholder="ВВедіть суму" asp-for="Price">
+                    <input type="text" placeholder="Введіть суму" asp-for="Price">
                 </div>
                 <div class="message-box">
                     <span asp-validation-for="Price"></span>
@@ -43,7 +43,7 @@
                 </div>
             }
             <div class="button-container">
-                <button class="btn-default" type="submit">Змінити</button>
+                <button class="btn-default" type="submit">Створити</button>
             </div>
         </div>
     </form>

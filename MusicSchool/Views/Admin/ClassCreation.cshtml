@@ -13,7 +13,7 @@
 }
 
 <div class="center-cont-reg">
-    <div class="action">Оновлення даних</div>
+    <div class="action">Створення уроку</div>
     <form method="post" asp-controller="Admin" asp-action="ClassCreation" autocomplete="off">
         <div class="form-container">
             <div class="data-container-reg">
@@ -53,6 +53,8 @@
 
                         </datalist>
                     </div>
+                </div>
+                <div class="part2">
                     <div class="input-container">
                         <label asp-for="ClassroomId" for="ClassroomId">Аудиторія</label>
                         <input type="text" asp-for="ClassroomId" list="Classroomes">
@@ -69,7 +71,6 @@
                     </div>
                     <div class="input-container">
                         <label asp-for="TeacherId" for="TeacherId">Викладач</label>
-                        @*<input type="hidden" asp-for="TeacherId" list="teacher-select">*@
                         <select asp-for="TeacherId" id="TeacherId">
                             @{
                                 foreach (var item in teachers)
@@ -81,7 +82,6 @@
                     </div>
                     <div class="input-container">
                         <label asp-for="StudentId" for="StudentId">Учень</label>
-                        @*<input type="hidden" asp-for="TeacherId" list="teacher-select">*@
                         <select asp-for="StudentId" id="StudentId">
                             @{
                                 foreach (var item in students)
@@ -100,8 +100,10 @@
                 </div>
             }
             <div class="button-container">
-                <button class="btn-default" type="submit">Змінити</button>
+                <button class="btn-default" type="submit">Створити</button>
             </div>
+            
         </div>
     </form>
+    <a class="adm-func" href="/Admin/ExtraClassCreation">Додати додатковий урок</a>
 </div>

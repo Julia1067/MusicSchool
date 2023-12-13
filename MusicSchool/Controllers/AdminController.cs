@@ -32,14 +32,15 @@ namespace MusicSchool.Controllers
 
         public IActionResult Display()
         {
+            
             return View();
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult UnconfirmedUser()
+        public async Task<IActionResult> UnconfirmedUser()
         {
-
-            return View();
+            var model = await _confirmationService.GetAllUnconfirmedUsers();
+            return View(model);
         }
 
         public async Task Delete(string Email)

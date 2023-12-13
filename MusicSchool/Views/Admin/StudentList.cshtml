@@ -1,6 +1,8 @@
 ﻿@inject MusicSchool.Repositories.Abstract.IAdminService adminService;
-<a href="/Admin/StudentListSortedByGroups">Сортувати за групою</a>
-<table>
+
+<div class="cont">
+    <a class="functions" href="/Admin/StudentListSortedByGroups">Сортувати за групою</a>
+<table id="list">
     <tr>
         <td>ПІБ</td>
         <td>Група</td>
@@ -19,10 +21,12 @@
                 <td>@adminService.GetCurrentGroup(item.Email)</td>
                 <td>@item.BirthDay.ToShortDateString()</td>
                 <td>@item.Email</td>
-                <td><a href="/Admin/UpdateStudentInfo?Email=@item.Email">Змінити</a></td>
-                <td><a href="/Admin/StudentDelete?Email=@item.Email" >Видалити</a></td>
-                <td><a href="/Admin/StudentClassSchedule?Id=@item.Id">Переглянуи графік</a></td>
+
+                <td><a class="functions" href="/Admin/UpdateStudentInfo?Email=@item.Email">Змінити</a></td>
+                <td><a class="functions" href="/Admin/StudentDelete?Email=@item.Email">Видалити</a></td>
+                <td><a class="functions" href="/Admin/StudentClassSchedule?Id=@item.Id">Переглянуи графік</a></td>
             </tr>
         }
     }
 </table>
+</div>

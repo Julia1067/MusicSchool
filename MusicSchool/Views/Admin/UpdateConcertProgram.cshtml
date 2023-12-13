@@ -7,10 +7,10 @@
 }
 
 <div class="center-cont-reg">
-    <div class="action">Оновлення даних</div>
+    <div class="action">Оновлення концертної програми</div>
     <form method="post" asp-controller="Admin" asp-action="UpdateConcertProgram" autocomplete="off">
         <div class="form-container">
-            <div class="data-container-reg">
+            <div class="data-reg">
                 <input asp-for="Id" hidden="hidden" value="@Model.Id" />
 
                 <input asp-for="StudentId" hidden="hidden" value="@Model.StudentId" />
@@ -49,7 +49,7 @@
                 </div>
             }
             <div class="button-container">
-                <button class="btn-default" type="submit">Змінити</button>
+                <button class="btn-default" type="submit">Оновити</button>
             </div>
         </div>
     </form>

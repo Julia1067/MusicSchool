@@ -5,20 +5,23 @@
 @{
     
 }
-<a href="/Admin/SetConcertProgram">Додати концертну програму</a>
-<table>
+<div class="cont">
+    <a class="functions" href="/Admin/SetConcertProgram">Додати концертну програму</a>
+<table id="concert-program">
     <tr>
         <td></td>
         <td>Учень</td>
         <td>Викладач</td>
         <td>Назва програми</td>
         <td></td>
+        <td></td>
     </tr>
-    <tr>
+    
         @{
             int i = 1;
             foreach (var item in Model)
             {
+                <tr>
                 <td>@i</td>
                 <td>
                     @adminService.GetCurrentStudent(item.StudentId).LastName 
@@ -31,11 +34,14 @@
                     @adminService.GetCurrentTeacher(item.TeacherId).Patronymic
                 </td>
                 <td>@item.ProgramName</td>
-                <td><a href="/Admin/UpdateConcertProgram?Id=@item.Id">Змінити</a></td>
-                <td><a href="/Admin/DeleteConcertProgram?Id=@item.Id">Видалити</a></td>
+                <td><a class="functions" href="/Admin/UpdateConcertProgram?Id=@item.Id">Змінити</a></td>
+                <td><a class="functions" href="/Admin/DeleteConcertProgram?Id=@item.Id">Видалити</a></td>
+                
+                </tr>
                 i++;
             }
         }
         
-    </tr>
+    
 </table>
+</div>

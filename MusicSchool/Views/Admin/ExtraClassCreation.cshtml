@@ -13,7 +13,7 @@
 }
 
 <div class="center-cont-reg">
-    <div class="action">Оновлення даних</div>
+    <div class="action">Створення уроку</div>
     <form method="post" asp-controller="Admin" asp-action="ExtraClassCreation" autocomplete="off">
         <div class="form-container">
             <div class="data-container-reg">
@@ -53,6 +53,8 @@
 
                         </datalist>
                     </div>
+                </div>
+                <div class="part2">
                     <div class="input-container">
                         <label asp-for="ClassroomId" for="ClassroomId">Аудиторія</label>
                         <input type="text" asp-for="ClassroomId" list="Classroomes">
@@ -80,7 +82,7 @@
                         </select>
                     </div>
                     <div class="input-container">
-                        <label asp-for="StudentGroupId" for="StudentGroupId">Учень</label>
+                        <label asp-for="StudentGroupId" for="StudentGroupId">Група</label>
                         @*<input type="hidden" asp-for="TeacherId" list="teacher-select">*@
                         <select asp-for="StudentGroupId" id="StudentGroupId">
                             @{
@@ -100,7 +102,7 @@
                 </div>
             }
             <div class="button-container">
-                <button class="btn-default" type="submit">Змінити</button>
+                <button class="btn-default" type="submit">Створити</button>
             </div>
         </div>
     </form>

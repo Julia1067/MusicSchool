@@ -79,9 +79,9 @@ namespace MusicSchool.Repositories.Implementation
             await databaseContext.SaveChangesAsync();
         }
 
-        public  List<UnconfirmedUserModel> GetAllUnconfirmedUsers()
+        public async Task<List<UnconfirmedUserModel>> GetAllUnconfirmedUsers()
         {
-            var users = databaseContext.UnconfirmedUsers.ToList();
+            var users = await databaseContext.UnconfirmedUsers.ToListAsync();
 
             return users;
         }
