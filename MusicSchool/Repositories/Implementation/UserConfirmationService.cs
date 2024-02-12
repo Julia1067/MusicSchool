@@ -76,6 +76,7 @@ namespace MusicSchool.Repositories.Implementation
         {
             var user = databaseContext.UnconfirmedUsers.FirstOrDefault(x => x.Email == Email);
             databaseContext.UnconfirmedUsers.Remove(user);
+
             await databaseContext.SaveChangesAsync();
         }
 
