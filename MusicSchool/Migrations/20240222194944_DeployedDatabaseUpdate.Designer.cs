@@ -12,8 +12,8 @@ using MusicSchool.Models.Domain;
 namespace MusicSchool.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231210101112_nullabilityUpdate")]
-    partial class nullabilityUpdate
+    [Migration("20240222194944_DeployedDatabaseUpdate")]
+    partial class DeployedDatabaseUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,32 +256,37 @@ namespace MusicSchool.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ClassId")
+                    b.Property<int>("ClassId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClassroomId")
+                    b.Property<int>("ClassPosition")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Fromdt")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ClassType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClassroomId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudentGroupId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Todt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("WeekDay")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WeekDay")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
 
                     b.HasIndex("ClassroomId");
+
+                    b.HasIndex("StudentGroupId");
 
                     b.HasIndex("StudentId");
 
@@ -303,21 +308,24 @@ namespace MusicSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classroomes");
+                    b.ToTable("Classrooms");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.ConcertProgramModel", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ProgramName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -326,65 +334,7 @@ namespace MusicSchool.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("ConcertPrograms");
-                });
-
-            modelBuilder.Entity("MusicSchool.Models.Domain.ExtraClassModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ExtraClasses");
-                });
-
-            modelBuilder.Entity("MusicSchool.Models.Domain.ExtraClassScheduleModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ClassroomId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Fromdt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Todt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("WeekDay")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("ClassroomId");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("ExtraSchedule");
+                    b.ToTable("ConcertProgram");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.PriceModel", b =>
@@ -395,7 +345,7 @@ namespace MusicSchool.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ExtraClassId")
+                    b.Property<int>("ClassId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -403,11 +353,10 @@ namespace MusicSchool.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExtraClassId")
-                        .IsUnique()
-                        .HasFilter("[ExtraClassId] IS NOT NULL");
+                    b.HasIndex("ClassId")
+                        .IsUnique();
 
-                    b.ToTable("PriceModel");
+                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.StudentGroupModel", b =>
@@ -591,11 +540,19 @@ namespace MusicSchool.Migrations
                 {
                     b.HasOne("MusicSchool.Models.Domain.ClassModel", "Class")
                         .WithMany("ClassSchedule")
-                        .HasForeignKey("ClassId");
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MusicSchool.Models.Domain.ClassroomModel", "Classroom")
                         .WithMany("ClassSchedule")
-                        .HasForeignKey("ClassroomId");
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicSchool.Models.Domain.StudentGroupModel", "StudentGroup")
+                        .WithMany("ExtraClassSchedule")
+                        .HasForeignKey("StudentGroupId");
 
                     b.HasOne("MusicSchool.Models.Domain.StudentModel", "Student")
                         .WithMany("ClassSchedule")
@@ -603,13 +560,17 @@ namespace MusicSchool.Migrations
 
                     b.HasOne("MusicSchool.Models.Domain.TeacherModel", "Teacher")
                         .WithMany("ClassSchedule")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Class");
 
                     b.Navigation("Classroom");
 
                     b.Navigation("Student");
+
+                    b.Navigation("StudentGroup");
 
                     b.Navigation("Teacher");
                 });
@@ -618,49 +579,28 @@ namespace MusicSchool.Migrations
                 {
                     b.HasOne("MusicSchool.Models.Domain.StudentModel", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MusicSchool.Models.Domain.TeacherModel", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Student");
 
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("MusicSchool.Models.Domain.ExtraClassScheduleModel", b =>
-                {
-                    b.HasOne("MusicSchool.Models.Domain.ExtraClassModel", "Class")
-                        .WithMany("ExtraClassSchedule")
-                        .HasForeignKey("ClassId");
-
-                    b.HasOne("MusicSchool.Models.Domain.ClassroomModel", "Classroom")
-                        .WithMany("ExtraClassSchedule")
-                        .HasForeignKey("ClassroomId");
-
-                    b.HasOne("MusicSchool.Models.Domain.StudentGroupModel", "Group")
-                        .WithMany("ExtraClassSchedule")
-                        .HasForeignKey("GroupId");
-
-                    b.HasOne("MusicSchool.Models.Domain.TeacherModel", "Teacher")
-                        .WithMany("ExtraClassSchedule")
-                        .HasForeignKey("TeacherId");
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Classroom");
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("MusicSchool.Models.Domain.PriceModel", b =>
                 {
-                    b.HasOne("MusicSchool.Models.Domain.ExtraClassModel", "Class")
+                    b.HasOne("MusicSchool.Models.Domain.ClassModel", "Class")
                         .WithOne("Price")
-                        .HasForeignKey("MusicSchool.Models.Domain.PriceModel", "ExtraClassId");
+                        .HasForeignKey("MusicSchool.Models.Domain.PriceModel", "ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Class");
                 });
@@ -686,20 +626,13 @@ namespace MusicSchool.Migrations
             modelBuilder.Entity("MusicSchool.Models.Domain.ClassModel", b =>
                 {
                     b.Navigation("ClassSchedule");
+
+                    b.Navigation("Price");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.ClassroomModel", b =>
                 {
                     b.Navigation("ClassSchedule");
-
-                    b.Navigation("ExtraClassSchedule");
-                });
-
-            modelBuilder.Entity("MusicSchool.Models.Domain.ExtraClassModel", b =>
-                {
-                    b.Navigation("ExtraClassSchedule");
-
-                    b.Navigation("Price");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.StudentGroupModel", b =>
@@ -717,8 +650,6 @@ namespace MusicSchool.Migrations
             modelBuilder.Entity("MusicSchool.Models.Domain.TeacherModel", b =>
                 {
                     b.Navigation("ClassSchedule");
-
-                    b.Navigation("ExtraClassSchedule");
                 });
 
             modelBuilder.Entity("MusicSchool.Models.Domain.TeacherPositionModel", b =>

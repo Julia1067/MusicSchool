@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MusicSchool.Migrations
 {
     /// <inheritdoc />
-    public partial class StructureUpdating : Migration
+    public partial class DeployedDatabaseUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,7 +67,7 @@ namespace MusicSchool.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Classroomes",
+                name: "Classrooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -76,20 +76,7 @@ namespace MusicSchool.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Classroomes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExtraClasses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExtraClasses", x => x.Id);
+                    table.PrimaryKey("PK_Classrooms", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,22 +228,23 @@ namespace MusicSchool.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PriceModel",
+                name: "Prices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExtraClassId = table.Column<int>(type: "int", nullable: true),
+                    ClassId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PriceModel", x => x.Id);
+                    table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PriceModel_ExtraClasses_ExtraClassId",
-                        column: x => x.ExtraClassId,
-                        principalTable: "ExtraClasses",
-                        principalColumn: "Id");
+                        name: "FK_Prices_Classes_ClassId",
+                        column: x => x.ClassId,
+                        principalTable: "Classes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -307,66 +295,30 @@ namespace MusicSchool.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ConcertPrograms",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: true),
-                    TeacherId = table.Column<int>(type: "int", nullable: true),
-                    ProgramName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ConcertPrograms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ConcertPrograms_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ConcertPrograms_Teachers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExtraSchedule",
+                name: "ConcertProgram",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TeacherId = table.Column<int>(type: "int", nullable: true),
-                    GroupId = table.Column<int>(type: "int", nullable: true),
-                    ClassId = table.Column<int>(type: "int", nullable: true),
-                    Fromdt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Todt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WeekDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClassroomId = table.Column<int>(type: "int", nullable: true)
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
+                    ProgramName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExtraSchedule", x => x.Id);
+                    table.PrimaryKey("PK_ConcertProgram", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExtraSchedule_Classroomes_ClassroomId",
-                        column: x => x.ClassroomId,
-                        principalTable: "Classroomes",
-                        principalColumn: "Id");
+                        name: "FK_ConcertProgram_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ExtraSchedule_ExtraClasses_ClassId",
-                        column: x => x.ClassId,
-                        principalTable: "ExtraClasses",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ExtraSchedule_StudentGroups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "StudentGroups",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ExtraSchedule_Teachers_TeacherId",
+                        name: "FK_ConcertProgram_Teachers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -375,13 +327,14 @@ namespace MusicSchool.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TeacherId = table.Column<int>(type: "int", nullable: true),
+                    ClassType = table.Column<int>(type: "int", nullable: false),
+                    ClassPosition = table.Column<int>(type: "int", nullable: false),
+                    WeekDay = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: true),
-                    ClassId = table.Column<int>(type: "int", nullable: true),
-                    Fromdt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Todt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WeekDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClassroomId = table.Column<int>(type: "int", nullable: true)
+                    StudentGroupId = table.Column<int>(type: "int", nullable: true),
+                    ClassId = table.Column<int>(type: "int", nullable: false),
+                    ClassroomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -390,11 +343,18 @@ namespace MusicSchool.Migrations
                         name: "FK_Schedule_Classes_ClassId",
                         column: x => x.ClassId,
                         principalTable: "Classes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Schedule_Classroomes_ClassroomId",
+                        name: "FK_Schedule_Classrooms_ClassroomId",
                         column: x => x.ClassroomId,
-                        principalTable: "Classroomes",
+                        principalTable: "Classrooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Schedule_StudentGroups_StudentGroupId",
+                        column: x => x.StudentGroupId,
+                        principalTable: "StudentGroups",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Schedule_Students_StudentId",
@@ -405,7 +365,8 @@ namespace MusicSchool.Migrations
                         name: "FK_Schedule_Teachers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -448,41 +409,20 @@ namespace MusicSchool.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConcertPrograms_StudentId",
-                table: "ConcertPrograms",
+                name: "IX_ConcertProgram_StudentId",
+                table: "ConcertProgram",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConcertPrograms_TeacherId",
-                table: "ConcertPrograms",
+                name: "IX_ConcertProgram_TeacherId",
+                table: "ConcertProgram",
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExtraSchedule_ClassId",
-                table: "ExtraSchedule",
-                column: "ClassId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExtraSchedule_ClassroomId",
-                table: "ExtraSchedule",
-                column: "ClassroomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExtraSchedule_GroupId",
-                table: "ExtraSchedule",
-                column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExtraSchedule_TeacherId",
-                table: "ExtraSchedule",
-                column: "TeacherId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PriceModel_ExtraClassId",
-                table: "PriceModel",
-                column: "ExtraClassId",
-                unique: true,
-                filter: "[ExtraClassId] IS NOT NULL");
+                name: "IX_Prices_ClassId",
+                table: "Prices",
+                column: "ClassId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedule_ClassId",
@@ -493,6 +433,11 @@ namespace MusicSchool.Migrations
                 name: "IX_Schedule_ClassroomId",
                 table: "Schedule",
                 column: "ClassroomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedule_StudentGroupId",
+                table: "Schedule",
+                column: "StudentGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedule_StudentId",
@@ -534,13 +479,10 @@ namespace MusicSchool.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ConcertPrograms");
+                name: "ConcertProgram");
 
             migrationBuilder.DropTable(
-                name: "ExtraSchedule");
-
-            migrationBuilder.DropTable(
-                name: "PriceModel");
+                name: "Prices");
 
             migrationBuilder.DropTable(
                 name: "Schedule");
@@ -555,13 +497,10 @@ namespace MusicSchool.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "ExtraClasses");
-
-            migrationBuilder.DropTable(
                 name: "Classes");
 
             migrationBuilder.DropTable(
-                name: "Classroomes");
+                name: "Classrooms");
 
             migrationBuilder.DropTable(
                 name: "Students");
